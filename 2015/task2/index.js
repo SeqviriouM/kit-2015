@@ -1,3 +1,8 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+<script>
 /**
  * Реализация API, не изменяйте ее
  * @param {string} url
@@ -30,59 +35,95 @@ function getData(url, callback) {
             {count: 157634, name: 'Zanzibar'}
         ]
     };
-
     setTimeout(function () {
         var result = RESPONSES[url];
         if (!result) {
             return callback('Unknown url');
         }
-
         callback(null, result);
     }, Math.round(Math.random * 1000));
 }
-<script>
+
 /**
  * Ваши изменения ниже
  */
-var requests = ['/countries', '/cities', '/populations'];
-var responses = {};
 
-for (i = 0; i < 3; i++) {
-    var request = requests[i];
-    var callback = function (error, result) {
-        responses[request] = result;
-        var l = [];
-        for (K in responses)
-            l.push(K);
+(function () {
+    var requests = ['/countries', '/cities', '/populations'],
+        responses = {},
+        target = prompt("Введите название интересующей страны или города:");     
 
-        if (l.length == 3) {
-            var c = [], cc = [], p = 0;
-            for (i = 0; i < responses['/countries'].length; i++) {
-                if (responses['/countries'][i].continent === 'Africa') {
-                    c.push(responses['/countries'][i].name);
+        var getPopulation = function (targetName, data) {
+            if (targetName) {
+                var town, country, population;
+                
+                town = data['/populations'].filter(function (item, index) {
+                    return item.name.toLowerCase() === target.toLowerCase();
+                });
+
+                if (town.length !== 0) {
+                    return 'Total population in town ' + target + ': ' + town[0].count;
+                } 
+
+                country = data['/cities'].filter(function (item, index) {
+                    return item.country.toLowerCase() === target.toLowerCase();
+                });
+
+                if (country.length !== 0) {
+                    town = data['/populations'].filter(function (item, index) {
+                        return item.name.toLowerCase() === country[0].name.toLowerCase(); 
+                    });
+
+                    population = town.reduce(function (res, curr) {
+                        return res + curr.count;
+                    }, 0);
+
+                    return 'Total population in country ' + target + ': ' + population;
+
                 }
-            }
 
-            for (i = 0; i < responses['/cities'].length; i++) {
-                for (j = 0; j < c.length; j++) {
-                    if (responses['/cities'][i].country === c[j]) {
-                        cc.push(responses['/cities'][i].name);
+                return 'Sorry, we haven\'t information about this town/country: ' + target; 
+            } else {
+                var countries = data['/countries'].map(function (item, index) {
+                    return (item.continent === 'Africa') ? item.name  : '';
+                }).filter(function (item, index) { 
+                    return item !== '' 
+                });
+
+                var cities = data['/cities'].map(function (item, index) {
+                    return (countries.indexOf(item.country) !== -1) ? item.name : '';
+                }).filter(function (item, index) { 
+                    return item !== '' 
+                });
+
+                var population = data['/populations'].reduce(function (res, curr) {
+                    if (cities.indexOf(curr.name) !== -1) {
+                        res += curr.count;
                     }
-                }
+                    return res;
+                }, 0);
+
+                return 'Total population in African cities: ' + population;
             }
 
-            for (i = 0; i < responses['/populations'].length; i++) {
-                for (j = 0; j < cc.length; j++) {
-                    if (responses['/populations'][i].name === cc[j]) {
-                        p += responses['/populations'][i].count;
-                    }
-                }
-            }
-
-            console.log('Total population in African cities: ' + p);
+            
         }
-    };
 
-    getData(request, callback);
-}
+        requests.forEach(function (requestUrl, index) {
+            getData(requestUrl, function (error, result) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    responses[requestUrl] = result;
+                }
+
+                if (Object.keys(responses).length === 3) {
+                    var result = getPopulation(target, responses);
+                    console.log(result);
+                }
+            })
+        })
+})(); 
+
 </script>
+</html>
