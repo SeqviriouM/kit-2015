@@ -35,62 +35,65 @@ function getData(url, callback) {
             {count: 157634, name: 'Zanzibar'}
         ]
     };
-
     setTimeout(function () {
         var result = RESPONSES[url];
         if (!result) {
             return callback('Unknown url');
         }
-
         callback(null, result);
     }, Math.round(Math.random * 1000));
 }
-
 /**
  * Ваши изменения ниже
  */
 var requests = ['/countries', '/cities', '/populations'],
     responses = {},
     target = prompt("Введите название интересующей страны или города:"); 
-
 for (i = 0; i < 3; i++) {
     var callback = function (error, result) {
         responses[arguments.callee.request] = result;
         var l = [];
         for (K in responses)
             l.push(K);
-
         if (l.length == 3) {
-            var c = [], cc = [], p = 0;
-            for (i = 0; i < responses['/countries'].length; i++) {
-                if (responses['/countries'][i].continent === 'Africa') {
-                    c.push(responses['/countries'][i].name);
+            if (target !== '') {
+                var town = responses['/populations'].filter(function (data, index) { return data.name.toLowerCase() === target.toLowerCase(); });
+                var country = responses['/cities'].filter(function (data, index) { return data.country.toLowerCase() === target.toLowerCase(); });
+                if (town.length !== 0) {
+                    console.log('Total population in ' + target + ': ' + town[0].count);
+                } else if (country.length !== 0) {
+                    var town = responses['/populations'].filter(function (data, index) { return data.name.toLowerCase() === country[0].name.toLowerCase(); });
+                    console.log('Total population in ' + target + ': ' + town[0].count);
+                } else {
+                    console.log('Sorry, we haven\'t information about this town/country: ' + target);
                 }
-            }
-
-            for (i = 0; i < responses['/cities'].length; i++) {
-                for (j = 0; j < c.length; j++) {
-                    if (responses['/cities'][i].country === c[j]) {
-                        cc.push(responses['/cities'][i].name);
+            } else {
+                var c = [], cc = [], p = 0;
+                for (i = 0; i < responses['/countries'].length; i++) {
+                    if (responses['/countries'][i].continent === 'Africa') {
+                        c.push(responses['/countries'][i].name);
                     }
                 }
-            }
-
-            for (i = 0; i < responses['/populations'].length; i++) {
-                for (j = 0; j < cc.length; j++) {
-                    if (responses['/populations'][i].name === cc[j]) {
-                        p += responses['/populations'][i].count;
+                for (i = 0; i < responses['/cities'].length; i++) {
+                    for (j = 0; j < c.length; j++) {
+                        if (responses['/cities'][i].country === c[j]) {
+                            cc.push(responses['/cities'][i].name);
+                        }
                     }
                 }
+                for (i = 0; i < responses['/populations'].length; i++) {
+                    for (j = 0; j < cc.length; j++) {
+                        if (responses['/populations'][i].name === cc[j]) {
+                            p += responses['/populations'][i].count;
+                        }
+                    }
+                }
+                console.log('Total population in African cities: ' + p);
             }
-
-            console.log('Total population in African cities: ' + p);
+            
         }
     };
-
-
     callback.request = requests[i];
-
     getData(callback.request, callback);
 }
 </script>
