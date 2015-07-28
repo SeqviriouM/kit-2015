@@ -1,8 +1,3 @@
-<html>
-    <head>
-        <meta charset="utf-8">
-    </head>
-<script>
 /**
  * Реализация API, не изменяйте ее
  * @param {string} url
@@ -124,6 +119,3 @@ function getData(url, callback) {
             })
         })
 })(); 
-
-</script>
-</html>
