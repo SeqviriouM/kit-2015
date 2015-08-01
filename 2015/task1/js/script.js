@@ -1,37 +1,48 @@
 jQuery(document).ready(function ($) {
 
-    // function checkTheadWidth() {
-    //     var tdWidth = [];
+    function checkTheadWidth() {
+        var tdWidth = [];
         
-    //     $('#tablo tbody tr:first-of-type td').each(function (index, value) {
-    //         tdWidth.push($(value).width());
-    //     })
+        $('#tablo tbody tr:first-of-type td').each(function (index, item) {
+            tdWidth.push($(item).width());
+        });
 
-    //     $('#tablo thead tr th').each(function (index, value) {
-    //         $(value).width(tdWidth[index]);
-    //     })
+        $('#tablo thead tr.tablo-title__fixed th').each(function (index, item) {
+            $(item).width(tdWidth[index]);
+            $(item).css('min-width',tdWidth[index]);
+        });
+    }
 
-    //     console.log(tdWidth);
-    // }
+    function columnSelection () {
 
-    // checkTheadWidth();
+    }
+
+    checkTheadWidth();
 
 
     $(window).scroll(function () {
-        var $tabloTitle = $('#tablo-title');
+        var $normalTitle = $('.tablo-title__normal'),
+            $fixedTitle = $('.tablo-title__fixed');
 
         if ($(window).scrollTop() > 65) {
-            $('#tablo-title .normal-title').removeClass('show');
-            $('#tablo-title .normal-title').addClass('hide');
-            $('#tablo-title .fixed-title').removeClass('hide');
-            $('#tablo-title .fixed-title').addClass('show');
+            $normalTitle.removeClass('show').addClass('hide');
+            $fixedTitle.removeClass('hide').addClass('show');
         } else {
-            $('#tablo-title .normal-title').removeClass('hide');
-            $('#tablo-title .normal-title').addClass('show');
-            $('#tablo-title .fixed-title').removeClass('show');
-            $('#tablo-title .fixed-title').addClass('hide');
+            $normalTitle.removeClass('hide').addClass('show');
+            $fixedTitle.removeClass('show').addClass('hide');
         }
     })
+    .resize(checkTheadWidth);
 
-     // $(window).resize(checkTheadWidth);
+    $('#tablo')
+        .on('mouseover mouseleave', 'td', function (e) {
+            if (e.type === 'mouseover') {
+                $('#tablo tbody tr td:nth-of-type(' + ($(this).index() + 1) + ')').addClass('hover');
+            } else {
+                $('#tablo tbody tr td:nth-of-type(' + ($(this).index() + 1) + ')').removeClass('hover');
+            }
+        })
+        .on('click', 'a', function (e) {
+            debugger;
+        })
 })
