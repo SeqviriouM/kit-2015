@@ -43,15 +43,71 @@
                         Онлайн Табло
                     </h1>
                 </div>
-                <div class="tabloFilter">
-                    <input type="checkbox" value="0">Прилет
-                    <input type="checkbox" value="1">Вылет
+                <div class="tablo-filter">    
+                    <div class="tablo-filter__switch">
+                       <div class="custom-block-switch">
+                          <input id="toggle-arrival" class="toggle toggle-flat" type="checkbox" checked>
+                          <label for="toggle-arrival" class="arrival"></label>
+                        </div>
+                        <div class="custom-block-switch">
+                          <input id="toggle-departure" class="toggle toggle-flat" type="checkbox" checked>
+                          <label for="toggle-departure" class="departure"></label>
+                        </div>
+                    </div>
+                </div>
+                 <div id="details" class="overlay">
+                    <div class="popup">
+                        <h2>Details</h2>
+                        <a class="popup__close" href="#">×</a>
+                        <div class="popup__content">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Тип рейса</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Номер рейса</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Авиакомпания</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Логотип</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Тип воздушного судна</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Аэропорт назначения</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Плановое время</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Статус рейса</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Примечание</td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
                 <table id="tablo">
                     <thead class="tablo-title">
                         <tr class="tablo-title__normal">
                             <th>
-                                <span class="longDescription">
+                                <span class="full-description">
                                     Тип рейса
                                 </span>
                                 <span class="short-description">
@@ -183,97 +239,28 @@
                                 <i class="fa fa-plane reverse"></i>
                             </td>
                             <td>
-                                 <a href="#popup1">УН 2338</a>
+                                 <a href="#details">УН 2338</a>
                             </td>
                             <td>
-                                <a href="#popup1">Трансаэро</a>
+                                <a href="#details">Трансаэро</a>
                             </td>
                             <td>
-                                <a href="#popup1"><img src="images/logos/un.png" /></a>
+                                <a href="#details"><img src="images/logos/un.png" /></a>
                             </td>
                             <td>
-                                <a href="#popup1">Тип воздушного судна</a>
+                                <a href="#details">Тип воздушного судна</a>
                             </td>
                             <td>
-                                <a href="#popup1">Горно-Алтайск</a>
+                                <a href="#details">Горно-Алтайск</a>
                             </td>
                             <td>
-                                <a href="#popup1">01.08.2015 10:20</a>
+                                <a href="#details">01.08.2015 10:20</a>
                             </td>
                             <td>
-                                <a href="#popup1">Прилетел в 10:19. Закончена выд. багажа на А06</a>
+                                <a href="#details">Прилетел в 10:19. Закончена выд. багажа на А06</a>
                             </td>
                             <td>
-                                <a href="#popup1">Примечание</a>
-                            </td>
-                            <div id="popup1" class="overlay">
-                                <div class="popup">
-                                    <h2>Here i am</h2>
-                                    <a class="close" href="#">×</a>
-                                    <div class="content">
-                                        Thank to pop me out of that button, but now i'm done so you can close this window.
-                                    </div>
-                                </div>
-                            </div>
-                        </tr>
-                        <tr class="departure">
-                            <a>
-                                <td>
-                                    <i class="fa fa-plane reverse"></i>
-                                </td>
-                                <td>
-                                    СУ 6127
-                                </td>
-                                <td>
-                                    Аэрофлот
-                                </td>
-                                <td>
-                                    <img src="images/logos/aero.png" />
-                                </td>
-                                <td>
-                                    Тип воздушного судна
-                                </td>
-                                <td>
-                                    Санкт-Петербург (Пулково)
-                                </td>
-                                <td>
-                                    01.08.2015 10:45
-                                </td>
-                                <td>
-                                    Прилетел в 10:22. Закончена выд. багажа на А09
-                                </td>
-                                <td>
-                                    Примечание
-                                </td>
-                            </a>
-                        </tr>
-                        <tr class="departure">
-                            <td>
-                                <i class="fa fa-plane reverse"></i>
-                            </td>
-                            <td>
-                                ЮТ 286
-                            </td>
-                            <td>
-                                ЮТэйр
-                            </td>
-                            <td>
-                                <img src="images/logos/ut.png" />
-                            </td>
-                            <td>
-                                Тип воздушного судна
-                            </td>
-                            <td>
-                                Сургут
-                            </td>
-                            <td>
-                                01.08.2015 10:50
-                            </td>
-                            <td>
-                                Прилетел в 10:57. Закончена выд. багажа на А08
-                            </td>
-                            <td>
-                                Примечание
+                                <a href="#details">Примечание</a>
                             </td>
                         </tr>
                         <tr class="departure">
@@ -281,57 +268,28 @@
                                 <i class="fa fa-plane reverse"></i>
                             </td>
                             <td>
-                                ТК 413
+                                <a href="#details">СУ 6127</a>
                             </td>
                             <td>
-                                Турецкие авиалинии
+                                <a href="#details">Аэрофлот</a>
                             </td>
                             <td>
-                                <img src="images/logos/tk.png" />
+                                <a href="#details"><img src="images/logos/aero.png" /></a>
                             </td>
                             <td>
-                                Тип воздушного судна
+                                <a href="#details">Тип воздушного судна</a>
                             </td>
                             <td>
-                                Стамбул (Ататюрк)
+                                <a href="#details">Санкт-Петербург (Пулково)</a>
                             </td>
                             <td>
-                                01.08.2015 11:20
+                                <a href="#details">01.08.2015 10:45</a>
                             </td>
                             <td>
-                                Прилетел в 11:18. Закончена выд. багажа на А13
+                                <a href="#details">Прилетел в 10:22. Закончена выд. багажа на А09</a>
                             </td>
                             <td>
-                                Примечание
-                            </td>
-                        </tr>
-                        <tr class="departure">
-                            <td>
-                                <i class="fa fa-plane reverse"></i>
-                            </td>
-                            <td>
-                                ДР 176
-                            </td>
-                            <td>
-                                Победа
-                            </td>
-                            <td>
-                                <img src="images/logos/pobeda.png" />
-                            </td>
-                            <td>
-                                Тип воздушного судна
-                            </td>
-                            <td>
-                                Геледжик
-                            </td>
-                            <td>
-                                01.08.2015 12:10
-                            </td>
-                            <td>
-                                Прилетел в 12:12. Лента выдачи багажа А05
-                            </td>
-                            <td>
-                                Примечание
+                                <a href="#details">Примечание</a>
                             </td>
                         </tr>
                         <tr class="departure">
@@ -339,57 +297,28 @@
                                 <i class="fa fa-plane reverse"></i>
                             </td>
                             <td>
-                                ЮТ 4116
+                                <a href="#details">ЮТ 286</a>
                             </td>
                             <td>
-                                ЮТэйр
+                                <a href="#details">ЮТэйр</a>
                             </td>
                             <td>
-                                <img src="images/logos/ut.png" />
+                                <a href="#details"><img src="images/logos/ut.png" /></a>
                             </td>
                             <td>
-                                Boeing 737-800
+                                <a href="#details">Тип воздушного судна</a>
                             </td>
                             <td>
-                                Иркутск
+                                <a href="#details">Сургут</a>
                             </td>
                             <td>
-                                01.08.2015 12:45
+                                <a href="#details">01.08.2015 10:50</a>
                             </td>
                             <td>
-                                Вылетел в 06:48. Ожидается в 12:44
+                                <a href="#details">Прилетел в 10:57. Закончена выд. багажа на А08</a>
                             </td>
                             <td>
-                                Примечание
-                            </td>
-                        </tr>
-                        <tr class="departure">
-                            <td>
-                                <i class="fa fa-plane reverse"></i>
-                            </td>
-                            <td>
-                                ЮТ 4029
-                            </td>
-                            <td>
-                                ЮТэйр
-                            </td>
-                            <td>
-                                <img src="images/logos/ut.png" />
-                            </td>
-                            <td>
-                                Тип воздушного судна
-                            </td>
-                            <td>
-                                Санкт-Петербург (Пулково)
-                            </td>
-                            <td>
-                                01.08.2015 13:10 
-                            </td>
-                            <td>
-                                Не вылетел. Ожидание трансфера Ожидается в 14:18
-                            </td>
-                            <td>
-                                Примечание
+                                <a href="#details">Примечание</a>
                             </td>
                         </tr>
                         <tr class="departure">
@@ -397,57 +326,28 @@
                                 <i class="fa fa-plane reverse"></i>
                             </td>
                             <td>
-                                УН 029
+                                <a href="#details">ТК 413</a>
                             </td>
                             <td>
-                                Трансаэро
+                                <a href="#details">Турецкие авиалинии</a>
                             </td>
                             <td>
-                                <img src="images/logos/un.png" />
+                                <a href="#details"><img src="images/logos/tk.png" /></a>
                             </td>
                             <td>
-                                Тип воздушного судна
+                                <a href="#details">Тип воздушного судна</a>
                             </td>
                             <td>
-                                Санкт-Петербург (Пулково)
+                                <a href="#details">Стамбул (Ататюрк)</a>
                             </td>
                             <td>
-                                01.08.2015 13:10
+                                <a href="#details">01.08.2015 11:20</a>
                             </td>
                             <td>
-                                Не вылетел. Ожидание трансфера Ожидается в 14:18
+                                <a href="#details">Прилетел в 11:18. Закончена выд. багажа на А13</a>
                             </td>
                             <td>
-                                Примечание
-                            </td>
-                        </tr>
-                        <tr class="departure">
-                            <td>
-                                <i class="fa fa-plane reverse"></i>
-                            </td>
-                            <td>
-                                UT 9012
-                            </td>
-                            <td>
-                                ЮТэйр
-                            </td>
-                            <td>
-                                <img src="images/logos/ut.png" />
-                            </td>
-                            <td>
-                                Тип воздушного судна
-                            </td>
-                            <td>
-                                Анталья
-                            </td>
-                            <td>
-                                01.08.2015 13:35 
-                            </td>
-                            <td>
-                                Вылетел в 10:52. Ожидается в 13:53
-                            </td>
-                            <td>
-                                Примечание
+                                <a href="#details">Примечание</a>
                             </td>
                         </tr>
                         <tr class="departure">
@@ -455,57 +355,28 @@
                                 <i class="fa fa-plane reverse"></i>
                             </td>
                             <td>
-                                FZ 911
+                                <a href="#details">ДР 176</a>
                             </td>
                             <td>
-                                Флайдубай
+                                <a href="#details">Победа</a>
                             </td>
                             <td>
-                                <img src="images/logos/fz.png" />
+                                <a href="#details"><img src="images/logos/pobeda.png" /></a>
                             </td>
                             <td>
-                                Тип воздушного судна
+                                <a href="#details">Тип воздушного судна</a>
                             </td>
                             <td>
-                                Дубай (Интернэйшнл)
+                                <a href="#details">Геледжик<a/>
                             </td>
                             <td>
-                                01.08.2015 13:50
+                                <a href="#details">01.08.2015 12:10</a>
                             </td>
                             <td>
-                                Вылетел в 08:45. Ожидается в 13:33
+                                <a href="#details">Прилетел в 12:12. Лента выдачи багажа А05</a>
                             </td>
                             <td>
-                                Примечание
-                            </td>
-                        </tr>
-                        <tr class="departure">
-                            <td>
-                                <i class="fa fa-plane reverse"></i>
-                            </td>
-                            <td>
-                                СУ 5813
-                            </td>
-                            <td>
-                                Аэрофлот
-                            </td>
-                            <td>
-                                <img src="images/logos/aero.png" />
-                            </td>
-                            <td>
-                                Тип воздушного судна
-                            </td>
-                            <td>
-                                Самара (Курумоч)
-                            </td>
-                            <td>
-                                01.08.2015 13:50
-                            </td>
-                            <td>
-                                Вылетел в 12:14. Ожидается в 14:02
-                            </td>
-                            <td>
-                                Примечание
+                                <a href="#details">Примечание</a>
                             </td>
                         </tr>
                         <tr class="departure">
@@ -513,28 +384,202 @@
                                 <i class="fa fa-plane reverse"></i>
                             </td>
                             <td>
-                                UN 1150
+                                <a href="#details">ЮТ 4116</a>
                             </td>
                             <td>
-                                Трансаэро
+                                <a href="#details">ЮТэйр</a>
                             </td>
                             <td>
-                                <img src="images/logos/un.png" />
+                                <a href="#details"><img src="images/logos/ut.png" /></a>
                             </td>
                             <td>
-                                Тип воздушного судна
+                                <a href="#details">Boeing 737-800</a>
                             </td>
                             <td>
-                                Анталья
+                                <a href="#details">Иркутск</a>
                             </td>
                             <td>
-                                01.08.2015 14:00
+                                <a href="#details">01.08.2015 12:45</a>
                             </td>
                             <td>
-                                Вылетел в 11:10. Ожидается в 14:04
+                                <a href="#details">Вылетел в 06:48. Ожидается в 12:44</a>
                             </td>
                             <td>
-                                Примечание
+                                <a href="#details">Примечание</a>
+                            </td>
+                        </tr>
+                        <tr class="departure">
+                            <td>
+                                <i class="fa fa-plane reverse"></i>
+                            </td>
+                            <td>
+                                <a href="#details">ЮТ 4029</a>
+                            </td>
+                            <td>
+                                <a href="#details">ЮТэйр</a>
+                            </td>
+                            <td>
+                                <a href="#details"><img src="images/logos/ut.png" /></a>
+                            </td>
+                            <td>
+                                <a href="#details">Тип воздушного судна</a>
+                            </td>
+                            <td>
+                                <a href="#details">Санкт-Петербург (Пулково)</a>
+                            </td>
+                            <td>
+                                <a href="#details">01.08.2015 13:10</a> 
+                            </td>
+                            <td>
+                                <a href="#details">Не вылетел. Ожидание трансфера Ожидается в 14:18</a>
+                            </td>
+                            <td>
+                                <a href="#details">Примечание</a>
+                            </td>
+                        </tr>
+                        <tr class="departure">
+                            <td>
+                                <i class="fa fa-plane reverse"></i>
+                            </td>
+                            <td>
+                                <a href="#details">УН 029</a>
+                            </td>
+                            <td>
+                                <a href="#details">Трансаэро</a>
+                            </td>
+                            <td>
+                                <a href="#details"><img src="images/logos/un.png" /></a>
+                            </td>
+                            <td>
+                                <a href="#details">Тип воздушного судна</a>
+                            </td>
+                            <td>
+                                <a href="#details">Санкт-Петербург (Пулково)</a>
+                            </td>
+                            <td>
+                                <a href="#details">01.08.2015 13:10</a>
+                            </td>
+                            <td>
+                                <a href="#details">Не вылетел. Ожидание трансфера Ожидается в 14:18</a>
+                            </td>
+                            <td>
+                                <a href="#details">Примечание</a>
+                            </td>
+                        </tr>
+                        <tr class="departure">
+                            <td>
+                                <i class="fa fa-plane reverse"></i>
+                            </td>
+                            <td>
+                                <a href="#details">UT 9012</a>
+                            </td>
+                            <td>
+                                <a href="#details">ЮТэйр</a>
+                            </td>
+                            <td>
+                                <a href="#details"><img src="images/logos/ut.png" /></a>
+                            </td>
+                            <td>
+                                <a href="#details">Тип воздушного судна</a>
+                            </td>
+                            <td>
+                                <a href="#details">Анталья</a>
+                            </td>
+                            <td>
+                                <a href="#details">01.08.2015 13:35</a> 
+                            </td>
+                            <td>
+                                <a href="#details">Вылетел в 10:52. Ожидается в 13:53</a>
+                            </td>
+                            <td>
+                                <a href="#details">Примечание</a>
+                            </td>
+                        </tr>
+                        <tr class="departure">
+                            <td>
+                                <i class="fa fa-plane reverse"></i>
+                            </td>
+                            <td>
+                                <a href="#details">FZ 911</a>
+                            </td>
+                            <td>
+                                <a href="#details">Флайдубай</a>
+                            </td>
+                            <td>
+                                <a href="#details"><img src="images/logos/fz.png" /></a>
+                            </td>
+                            <td>
+                                <a href="#details">Тип воздушного судна</a>
+                            </td>
+                            <td>
+                                <a href="#details">Дубай (Интернэйшнл)</a>
+                            </td>
+                            <td>
+                                <a href="#details">01.08.2015 13:50</a>
+                            </td>
+                            <td>
+                                <a href="#details">Вылетел в 08:45. Ожидается в 13:33</a>
+                            </td>
+                            <td>
+                                <a href="#details">Примечание</a>
+                            </td>
+                        </tr>
+                        <tr class="departure">
+                            <td>
+                                <i class="fa fa-plane reverse"></i>
+                            </td>
+                            <td>
+                                <a href="#details">СУ 5813</a>
+                            </td>
+                            <td>
+                                <a href="#details">Аэрофлот</a>
+                            </td>
+                            <td>
+                                <a href="#details"><img src="images/logos/aero.png" /></a>
+                            </td>
+                            <td>
+                                <a href="#details">Тип воздушного судна</a>
+                            </td>
+                            <td>
+                                <a href="#details">Самара (Курумоч)</a>
+                            </td>
+                            <td>
+                                <a href="#details">01.08.2015 13:50</a>
+                            </td>
+                            <td>
+                                <a href="#details">Вылетел в 12:14. Ожидается в 14:02</a>
+                            </td>
+                            <td>
+                                <a href="#details">Примечание</a>
+                            </td>
+                        </tr>
+                        <tr class="departure">
+                            <td>
+                                <i class="fa fa-plane reverse"></i>
+                            </td>
+                            <td>
+                                <a href="#details">UN 1150</a>
+                            </td>
+                            <td>
+                                <a href="#details">Трансаэро</a>
+                            </td>
+                            <td>
+                                <a href="#details"><img src="images/logos/un.png" /></a>
+                            </td>
+                            <td>
+                                <a href="#details">Тип воздушного судна</a>
+                            </td>
+                            <td>
+                                <a href="#details">Анталья</a>
+                            </td>
+                            <td>
+                                <a href="#details">01.08.2015 14:00</a>
+                            </td>
+                            <td>
+                                <a href="#details">Вылетел в 11:10. Ожидается в 14:04</a>
+                            </td>
+                            <td>
+                                <a href="#details">Примечание</a>
                             </td>
                         </tr>
                          <tr class="departure">
@@ -542,28 +587,28 @@
                                 <i class="fa fa-plane reverse"></i>
                             </td>
                             <td>
-                                UT 4208
+                                <a href="#details">UT 4208</a>
                             </td>
                             <td>
-                                ЮТэйр
+                                <a href="#details">ЮТэйр</a>
                             </td>
                             <td>
-                                <img src="images/logos/ut.png" />
+                                <a href="#details"><img src="images/logos/ut.png" /></a>
                             </td>
                             <td>
-                                Тип воздушного судна
+                                <a href="#details">Тип воздушного судна</a>
                             </td>
                             <td>
-                                Одесса (Интернэйшнл)
+                                <a href="#details">Одесса (Интернэйшнл)</a>
                             </td>
                             <td>
-                                01.08.2015 15:00 
+                                <a href="#details">01.08.2015 15:00</a> 
                             </td>
                             <td>
-                                Не вылетел. Позднее прибытие ВС Ожидается в 15:20
+                                <a href="#details">Не вылетел. Позднее прибытие ВС Ожидается в 15:20</a>
                             </td>
                             <td>
-                                Примечание
+                                <a href="#details">Примечание</a>
                             </td>
                         </tr>
                          <tr class="departure">
@@ -571,28 +616,28 @@
                                 <i class="fa fa-plane reverse"></i>
                             </td>
                             <td>
-                                UN 208
+                                <a href="#details">UN 208</a>
                             </td>
                             <td>
-                                Трансаэро
+                                <a href="#details">Трансаэро</a>
                             </td>
                             <td>
-                                <img src="images/logos/un.png" />
+                                <a href="#details"><img src="images/logos/un.png" /></a>
                             </td>
                             <td>
-                                Тип воздушного судна
+                                <a href="#details">Тип воздушного судна</a>
                             </td>
                             <td>
-                                Одесса (Интернэйшнл)
+                                <a href="#details">Одесса (Интернэйшнл)</a>
                             </td>
                             <td>
-                                01.08.2015 15:00
+                                <a href="#details">01.08.2015 15:00</a>
                             </td>
                             <td>
-                                Не вылетел. Позднее прибытие ВС Ожидается в 15:20
+                                <a href="#details">Не вылетел. Позднее прибытие ВС Ожидается в 15:20</a>
                             </td>
                             <td>
-                                Примечание
+                                <a href="#details">Примечание</a>
                             </td>
                         </tr>
 
@@ -602,57 +647,28 @@
                                 <i class="fa fa-plane"></i>
                             </td>
                             <td>
-                                ОП 983
+                                <a href="#details">ОП 983</a>
                             </td>
                             <td>
-                                Газпром авиа
+                                <a href="#details">Газпром авиа</a>
                             </td>
                             <td>
-                                <img src="images/logos/gaz.png" />
+                                <a href="#details"><img src="images/logos/gaz.png" /></a>
                             </td>
                             <td>
-                                Тип воздушного судна
+                                <a href="#details">Тип воздушного судна</a>
                             </td>
                             <td>
-                                Краснодар (Пашковская)
+                                <a href="#details">Краснодар (Пашковская)</a>
                             </td>
                             <td>
-                                01.08.2015 11:15
+                                <a href="#details">01.08.2015 11:15</a>
                             </td>
                             <td>
-                                Вылетел в 11:37
+                                <a href="#details">Вылетел в 11:37</a>
                             </td>
                             <td>
-                                Примечание
-                            </td>
-                        </tr>
-                        <tr class="arrival">
-                            <td>
-                                <i class="fa fa-plane"></i>
-                            </td>
-                            <td>
-                                СУ 6128
-                            </td>
-                            <td>
-                                Аэрофлот
-                            </td>
-                            <td>
-                                <img src="images/logos/aero.png" />
-                            </td>
-                            <td>
-                                Тип воздушного судна
-                            </td>
-                            <td>
-                                Санкт-Петербург (Пулково)
-                            </td>
-                            <td>
-                                01.08.2015 11:30
-                            </td>
-                            <td>
-                                Вылетел в 11:54
-                            </td>
-                            <td>
-                                Примечание
+                                <a href="#details">Примечание</a>
                             </td>
                         </tr>
                         <tr class="arrival">
@@ -660,57 +676,28 @@
                                 <i class="fa fa-plane"></i>
                             </td>
                             <td>
-                                UN 557
+                                <a href="#details">СУ 6128</a>
                             </td>
                             <td>
-                                Трансаэро
+                                <a href="#details">Аэрофлот</a>
                             </td>
                             <td>
-                                <img src="images/logos/aero.png" />
+                                <a href="#details"><img src="images/logos/aero.png" /></a>
                             </td>
                             <td>
-                                Тип воздушного судна
+                                <a href="#details">Тип воздушного судна</a>
                             </td>
                             <td>
-                                Лос-Анджелес
+                                <a href="#details">Санкт-Петербург (Пулково)</a>
                             </td>
                             <td>
-                                01.08.2015 11:40
+                                <a href="#details">01.08.2015 11:30</a>
                             </td>
                             <td>
-                                Посадка закончена. Выход 19
+                                <a href="#details">Вылетел в 11:54</a>
                             </td>
                             <td>
-                                Примечание
-                            </td>
-                        </tr>
-                        <tr class="arrival">
-                            <td>
-                                <i class="fa fa-plane"></i>
-                            </td>
-                            <td>
-                                UN 543
-                            </td>
-                            <td>
-                                Трансаэро
-                            </td>
-                            <td>
-                                <img src="images/logos/un.png" />
-                            </td>
-                            <td>
-                                Тип воздушного судна
-                            </td>
-                            <td>
-                                ДЕЛИ (ИНДИРА ГАНДИ ИНТ.)
-                            </td>
-                            <td>
-                                01.08.2015 11:50
-                            </td>
-                            <td>
-                                Задержан до 12:30. Позднее прибытие ВС
-                            </td>
-                            <td>
-                                Примечание
+                                <a href="#details">Примечание</a>
                             </td>
                         </tr>
                         <tr class="arrival">
@@ -718,57 +705,28 @@
                                 <i class="fa fa-plane"></i>
                             </td>
                             <td>
-                                UN 359
+                                <a href="#details">UN 557</a>
                             </td>
                             <td>
-                                Трансаэро
+                                <a href="#details">Трансаэро</a>
                             </td>
                             <td>
-                                <img src="images/logos/un.png" />
+                                <a href="#details"><img src="images/logos/aero.png" /></a>
                             </td>
                             <td>
-                                Тип воздушного судна
+                                <a href="#details">Тип воздушного судна</a>
                             </td>
                             <td>
-                                Прага (Рузине)
+                                <a href="#details">Лос-Анджелес</a>
                             </td>
                             <td>
-                                01.08.2015 12:00
+                                <a href="#details">01.08.2015 11:40</a>
                             </td>
                             <td>
-                                Посадка закончена. Выход 21
+                                <a href="#details">Посадка закончена. Выход 19</a>
                             </td>
                             <td>
-                                Примечание
-                            </td>
-                        </tr>
-                        <tr class="arrival">
-                            <td>
-                                <i class="fa fa-plane"></i>
-                            </td>
-                            <td>
-                                ОП 4557
-                            </td>
-                            <td>
-                                Газпром авиа
-                            </td>
-                            <td>
-                                <img src="images/logos/gaz.png" />
-                            </td>
-                            <td>
-                                Тип воздушного судна
-                            </td>
-                            <td>
-                                Махачкала
-                            </td>
-                            <td>
-                                01.08.2015 12:10
-                            </td>
-                            <td>
-                                Посадка закончена. Выход 10A
-                            </td>
-                            <td>
-                                Примечание
+                                <a href="#details">Примечание</a>
                             </td>
                         </tr>
                         <tr class="arrival">
@@ -776,57 +734,28 @@
                                 <i class="fa fa-plane"></i>
                             </td>
                             <td>
-                                ДР 121
+                                <a href="#details">UN 543</a>
                             </td>
                             <td>
-                                Победа
+                                <a href="#details">Трансаэро</a>
                             </td>
                             <td>
-                                <img src="images/logos/pobeda.png" />
+                                <a href="#details"><img src="images/logos/un.png" /></a>
                             </td>
                             <td>
-                                Тип воздушного судна
+                                <a href="#details">Тип воздушного судна</a>
                             </td>
                             <td>
-                                Сочи (Адлер)
+                                <a href="#details">ДЕЛИ (ИНДИРА ГАНДИ ИНТ.)</a>
                             </td>
                             <td>
-                                01.08.2015 13:00
+                                <a href="#details">01.08.2015 11:50</a>
                             </td>
                             <td>
-                                Идёт посадка. Окончание в 12:35. Выход 12A
+                                <a href="#details">Задержан до 12:30. Позднее прибытие ВС</a>
                             </td>
                             <td>
-                                Примечание
-                            </td>
-                        </tr>
-                        <tr class="arrival">
-                            <td>
-                                <i class="fa fa-plane"></i>
-                            </td>
-                            <td>
-                                ЮТ 197
-                            </td>
-                            <td>
-                                ЮТэйр
-                            </td>
-                            <td>
-                                <img src="images/logos/ut.png" />
-                            </td>
-                            <td>
-                                Тип воздушного судна
-                            </td>
-                            <td>
-                                Воронеж (Чертовицкое)
-                            </td>
-                            <td>
-                                01.08.2015 13:30
-                            </td>
-                            <td>
-                                Задержан до 14:00. Позднее прибытие ВС
-                            </td>
-                            <td>
-                                Примечание
+                                <a href="#details">Примечание</a>
                             </td>
                         </tr>
                         <tr class="arrival">
@@ -834,57 +763,28 @@
                                 <i class="fa fa-plane"></i>
                             </td>
                             <td>
-                                UN 9153
+                                <a href="#details">UN 359</a>
                             </td>
                             <td>
-                                Трансаэро
+                                <a href="#details">Трансаэро</a>
                             </td>
                             <td>
-                                <img src="images/logos/un.png" />
+                                <a href="#details"><img src="images/logos/un.png" /></a>
                             </td>
                             <td>
-                                Тип воздушного судна
+                                <a href="#details">Тип воздушного судна</a>
                             </td>
                             <td>
-                                Бургас
+                                <a href="#details">Прага (Рузине)</a>
                             </td>
                             <td>
-                                01.08.2015 14:00
+                                <a href="#details">01.08.2015 12:00</a>
                             </td>
                             <td>
-                                Идет регистрация. Окончание в 13:20
+                                <a href="#details">Посадка закончена. Выход 21</a>
                             </td>
                             <td>
-                                Примечание
-                            </td>
-                        </tr>
-                        <tr class="arrival">
-                            <td>
-                                <i class="fa fa-plane"></i>
-                            </td>
-                            <td>
-                                R2 7701
-                            </td>
-                            <td>
-                                Оренбургские авиалинии
-                            </td>
-                            <td>
-                                <img src="images/logos/orenburg.png" />
-                            </td>
-                            <td>
-                                Тип воздушного судна
-                            </td>
-                            <td>
-                                Анталья
-                            </td>
-                            <td>
-                                01.08.2015 14:00
-                            </td>
-                            <td>
-                                Идет регистрация. Окончание в 13:20
-                            </td>
-                            <td>
-                                Примечание
+                                <a href="#details">Примечание</a>
                             </td>
                         </tr>
                         <tr class="arrival">
@@ -892,28 +792,28 @@
                                 <i class="fa fa-plane"></i>
                             </td>
                             <td>
-                                UN 353
+                                <a href="#details">ОП 4557</a>
                             </td>
                             <td>
-                                Трансаэро
+                                <a href="#details">Газпром авиа</a>
                             </td>
                             <td>
-                                <img src="images/logos/un.png" />
+                                <a href="#details"><img src="images/logos/gaz.png" /></a>
                             </td>
                             <td>
-                                Тип воздушного судна
+                                <a href="#details">Тип воздушного судна</a>
                             </td>
                             <td>
-                                Лондон (Хитроу)
+                                <a href="#details">Махачкала</a>
                             </td>
                             <td>
-                                01.08.2015 14:10
+                                <a href="#details">01.08.2015 12:10</a>
                             </td>
                             <td>
-                                Идет регистрация. Окончание в 13:30
+                                <a href="#details">Посадка закончена. Выход 10A</a>
                             </td>
                             <td>
-                                Примечание
+                                <a href="#details">Примечание</a>
                             </td>
                         </tr>
                         <tr class="arrival">
@@ -921,28 +821,173 @@
                                 <i class="fa fa-plane"></i>
                             </td>
                             <td>
-                                ГГ 721
+                                <a href="#details">ДР 121</a>
                             </td>
                             <td>
-                                Грозный авиа
+                                <a href="#details">Победа</a>
                             </td>
                             <td>
-                                <img src="images/logos/grozniy.png" />
+                                <a href="#details"><img src="images/logos/pobeda.png" /></a>
                             </td>
                             <td>
-                                Тип воздушного судна
+                                <a href="#details">Тип воздушного судна</a>
                             </td>
                             <td>
-                                Грозный
+                                <a href="#details">Сочи (Адлер)</a>
                             </td>
                             <td>
-                                01.08.2015 14:30
+                                <a href="#details">01.08.2015 13:00</a>
                             </td>
                             <td>
-                                Идет регистрация. Окончание в 13:50
+                                <a href="#details">Идёт посадка. Окончание в 12:35. Выход 12A</a>
                             </td>
                             <td>
-                                Примечание
+                                <a href="#details">Примечание</a>
+                            </td>
+                        </tr>
+                        <tr class="arrival">
+                            <td>
+                                <i class="fa fa-plane"></i>
+                            </td>
+                            <td>
+                                <a href="#details">ЮТ 197</a>
+                            </td>
+                            <td>
+                                <a href="#details">ЮТэйр</a>
+                            </td>
+                            <td>
+                                <a href="#details"><img src="images/logos/ut.png" /></a>
+                            </td>
+                            <td>
+                                <a href="#details">Тип воздушного судна</a>
+                            </td>
+                            <td>
+                                <a href="#details">Воронеж (Чертовицкое)</a>
+                            </td>
+                            <td>
+                                <a href="#details">01.08.2015 13:30</a>
+                            </td>
+                            <td>
+                                <a href="#details">Задержан до 14:00. Позднее прибытие ВС</a>
+                            </td>
+                            <td>
+                                <a href="#details">Примечание</a>
+                            </td>
+                        </tr>
+                        <tr class="arrival">
+                            <td>
+                                <i class="fa fa-plane"></i>
+                            </td>
+                            <td>
+                                <a href="#details">UN 9153</a>
+                            </td>
+                            <td>
+                                <a href="#details">Трансаэро</a>
+                            </td>
+                            <td>
+                                <a href="#details"><img src="images/logos/un.png" /></a>
+                            </td>
+                            <td>
+                                <a href="#details">Тип воздушного судна</a>
+                            </td>
+                            <td>
+                                <a href="#details">Бургас</a>
+                            </td>
+                            <td>
+                                <a href="#details">01.08.2015 14:00</a>
+                            </td>
+                            <td>
+                                <a href="#details">Идет регистрация. Окончание в 13:20</a>
+                            </td>
+                            <td>
+                                <a href="#details">Примечание</a>
+                            </td>
+                        </tr>
+                        <tr class="arrival">
+                            <td>
+                                <i class="fa fa-plane"></i>
+                            </td>
+                            <td>
+                                <a href="#details">R2 7701</a>
+                            </td>
+                            <td>
+                                <a href="#details">Оренбургские авиалинии</a>
+                            </td>
+                            <td>
+                                <a href="#details"><img src="images/logos/orenburg.png" /></a>
+                            </td>
+                            <td>
+                                <a href="#details">Тип воздушного судна</a>
+                            </td>
+                            <td>
+                                <a href="#details">Анталья</a>
+                            </td>
+                            <td>
+                                <a href="#details">01.08.2015 14:00</a>
+                            </td>
+                            <td>
+                                <a href="#details">Идет регистрация. Окончание в 13:20</a>
+                            </td>
+                            <td>
+                                <a href="#details">Примечание</a>
+                            </td>
+                        </tr>
+                        <tr class="arrival">
+                            <td>
+                                <i class="fa fa-plane"></i>
+                            </td>
+                            <td>
+                                <a href="#details">UN 353</a>
+                            </td>
+                            <td>
+                                <a href="#details">Трансаэро</a>
+                            </td>
+                            <td>
+                                <a href="#details"><img src="images/logos/un.png" /></a>
+                            </td>
+                            <td>
+                                <a href="#details">Тип воздушного судна</a>
+                            </td>
+                            <td>
+                                <a href="#details">Лондон (Хитроу)</a>
+                            </td>
+                            <td>
+                                <a href="#details">01.08.2015 14:10</a>
+                            </td>
+                            <td>
+                                <a href="#details">Идет регистрация. Окончание в 13:30</a>
+                            </td>
+                            <td>
+                                <a href="#details">Примечание</a>
+                            </td>
+                        </tr>
+                        <tr class="arrival">
+                            <td>
+                                <i class="fa fa-plane"></i>
+                            </td>
+                            <td>
+                                <a href="#details">ГГ 721</a>
+                            </td>
+                            <td>
+                                <a href="#details">Грозный авиа</a>
+                            </td>
+                            <td>
+                                <a href="#details"><img src="images/logos/grozniy.png" /></a>
+                            </td>
+                            <td>
+                                <a href="#details">Тип воздушного судна</a>
+                            </td>
+                            <td>
+                                <a href="#details">Грозный</a>
+                            </td>
+                            <td>
+                                <a href="#details">01.08.2015 14:30</a>
+                            </td>
+                            <td>
+                                <a href="#details">Идет регистрация. Окончание в 13:50</a>
+                            </td>
+                            <td>
+                                <a href="#details">Примечание</a>
                             </td>
                         </tr>  
                         <tr class="arrival">
@@ -950,28 +995,28 @@
                                 <i class="fa fa-plane"></i>
                             </td>
                             <td>
-                                FZ 912
+                                <a href="#details">FZ 912</a>
                             </td>
                             <td>
-                                Флайдубай
+                                <a href="#details">Флайдубай</a>
                             </td>
                             <td>
-                                <img src="images/logos/fz.png" />
+                                <a href="#details"><img src="images/logos/fz.png" /></a>
                             </td>
                             <td>
-                                Тип воздушного судна
+                                <a href="#details">Тип воздушного судна</a>
                             </td>
                             <td>
-                                Дубай (Интернэйшнл)
+                                <a href="#details">Дубай (Интернэйшнл)</a>
                             </td>
                             <td>
-                                01.08.2015 14:50
+                                <a href="#details">01.08.2015 14:50</a>
                             </td>
                             <td>
-                                Идет регистрация. Окончание в 13:50
+                                <a href="#details">Идет регистрация. Окончание в 13:50</a>
                             </td>
                             <td>
-                                Примечание
+                                <a href="#details">Примечание</a>
                             </td>
                         </tr>    
                         <tr class="arrival">
@@ -979,28 +1024,28 @@
                                 <i class="fa fa-plane"></i>
                             </td>
                             <td>
-                                СУ 5818
+                                <a href="#details">СУ 5818</a>
                             </td>
                             <td>
-                                Аэрофлот
+                                <a href="#details">Аэрофлот</a>
                             </td>
                             <td>
-                                <img src="images/logos/aero.png" />
+                                <a href="#details"><img src="images/logos/aero.png" /></a>
                             </td>
                             <td>
-                                Тип воздушного судна
+                                <a href="#details">Тип воздушного судна</a>
                             </td>
                             <td>
-                                Самара (Курумоч)
+                                <a href="#details">Самара (Курумоч)</a>
                             </td>
                             <td>
-                                01.08.2015 15:00
+                                <a href="#details">01.08.2015 15:00</a>
                             </td>
                             <td>
-                                Идет регистрация. Окончание в 14:20
+                                <a href="#details">Идет регистрация. Окончание в 14:20</a>
                             </td>
                             <td>
-                                Примечание
+                                <a href="#details">Примечание</a>
                             </td>
                         </tr>  
                         <tr class="arrival">
@@ -1008,28 +1053,28 @@
                                 <i class="fa fa-plane"></i>
                             </td>
                             <td>
-                                UN 591
+                                <a href="#details">UN 591</a>
                             </td>
                             <td>
-                                Трансаэро
+                                <a href="#details">Трансаэро</a>
                             </td>
                             <td>
-                                <img src="images/logos/un.png" />
+                                <a href="#details"><img src="images/logos/un.png" /></a>
                             </td>
                             <td>
-                                Тип воздушного судна
+                                <a href="#details">Тип воздушного судна</a>
                             </td>
                             <td>
-                                Даламан
+                                <a href="#details">Даламан</a>
                             </td>
                             <td>
-                                01.08.2015 16:00
+                                <a href="#details">01.08.2015 16:00</a>
                             </td>
                             <td>
-                                Задержан до 16:20.Позднее прибытие ВС.Идёт рег-ция
+                                <a href="#details">Задержан до 16:20.Позднее прибытие ВС.Идёт рег-ция</a>
                             </td>
                             <td>
-                                Примечание
+                                <a href="#details">Примечание</a>
                             </td>
                         </tr>             
                     </tbody>

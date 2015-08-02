@@ -1,5 +1,5 @@
-.container {
-
+html, body {
+    font-family: sans-serif;
 }
 
 table {
@@ -7,22 +7,23 @@ table {
     background-color: transparent;
     border-spacing: 0;
     border-collapse: collapse;
+    font-size: 14px;
 }
 
 td, th {
     border: 1px solid #ddd;
     vertical-align: center;
-    padding: 5px 0;
+    padding: 5px 2px;
     cursor: pointer;
     text-align: center;
     
 }
 
-table > thead > tr > th {
+th {
     border-bottom: 2px solid #ddd;
 }
 
-.title h1 {
+.title {
     text-align: center;
 }
 
@@ -56,9 +57,9 @@ table > thead > tr > th {
     background-color: #f5f5f5;
 }
 
-#tablo .col-1:hover {
+/*#tablo .col-1:hover {
     background-color: #f5f5f5;
-}
+}*/
 
 .fa.reverse {
     transform: rotateZ(90deg);
@@ -99,15 +100,16 @@ table > thead > tr > th {
 
 /* Popup */
 .overlay {
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
     background: rgba(0, 0, 0, 0.7);
     transition: opacity 500ms;
-    visibility: hidden;
+    visibility: hidden; 
     opacity: 0;
+    z-index: 3;
 }
 .overlay:target {
     visibility: visible;
@@ -119,9 +121,11 @@ table > thead > tr > th {
     padding: 20px;
     background: #fff;
     border-radius: 5px;
-    width: 30%;
+    width: 90%;
+    max-width: 550px;
     position: relative;
-    transition: all 5s ease-in-out;
+    transition: all 2s ease-in-out;
+    z-index: 2;
 }
 
 .popup h2 {
@@ -129,7 +133,7 @@ table > thead > tr > th {
     color: #333;
     font-family: Tahoma, Arial, sans-serif;
 }
-.popup .close {
+.popup__close {
     position: absolute;
     top: 20px;
     right: 30px;
@@ -139,13 +143,109 @@ table > thead > tr > th {
     text-decoration: none;
     color: #333;
 }
-.popup .close:hover {
+.popup__close:hover {
     color: orange;
 }
-.popup .content {
+.popup__content {
     max-height: 30%;
     overflow: auto;
 }
+
+.popup__content tr:nth-of-type(odd) {
+    background-color: #bdc3c7;
+}
+
+.popup__content tr td {
+    border: none;
+}
+
+.popup__content tr td:first-of-type() {
+    background: #bdc3c7;
+}
+
+
+
+input.toggle {
+  position: absolute;
+  visibility: hidden;
+}
+
+input.toggle + label {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+input.toggle-flat + label:before,
+input.toggle-flat + label:after{
+  display: block;
+  position: absolute;
+  content: "";
+}
+input.toggle-flat + label {
+  width: 100px;
+  height: 30px;
+  background-color: #BF2A23;
+  border-radius: 15px;
+  -webkit-transition: background 0.5s;
+  -moz-transition: background 0.5s;
+  -o-transition: background 0.5s;
+  transition: background 0.5s;
+}
+input.toggle-flat + label:before{
+  top: 2px;
+  left: 2px;
+  bottom: 2px;
+  right: 2px;
+  -webkit-transition: background 0.5s;
+  -moz-transition: background 0.5s;
+  -o-transition: background 0.5s;
+  transition: background 0.5s;
+}
+input.toggle-flat+label:after{
+  top: 4px;
+  left: 4px;
+  bottom: 4px;
+  width: 65px;
+  border-radius: 11px;
+  background-color: #fff;
+  padding-top: 2px;
+  text-align: center;
+  -webkit-transition: margin 0.5s, background 0.5s;
+  -moz-transition: margin 0.5s, background 0.5s;
+  -o-transition: margin 0.5s, background 0.5s;
+  transition: margin 0.5s, background 0.5s;
+}
+input.toggle-flat:checked+label {
+  background-color:#00C176;
+}
+input.toggle-flat:checked+label:after {
+  margin-left: 27px;
+  background-color:#fff;
+}
+
+.custom-block-switch {
+    display: inline-block;
+    margin: 0 5px;
+}
+.custom-block-switch label.arrival:after {
+    content: 'Прилет';
+}
+.custom-block-switch label.departure:after {
+    content: 'Вылет';
+}
+
+.tablo-filter {
+    text-align: center;
+    margin: 7px 0;
+}
+
 
 @media screen and (max-width: 900px) {
     #tablo tbody tr td:nth-of-type(3), #tablo thead tr th:nth-of-type(3) {
@@ -158,5 +258,21 @@ table > thead > tr > th {
     
     .full-description {
         display: none;
+    }
+}
+
+@media screen and (max-width: 620px) {
+    table {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .tablo-title__fixed {
+        opacity: 0;
+    }
+
+    .tablo-title__normal {
+        opacity: 1 !important;
     }
 }

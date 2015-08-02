@@ -44,5 +44,11 @@ jQuery(document).ready(function ($) {
         })
         .on('click', 'a', function (e) {
             debugger;
+            var targetRow = $(this).parent().parent().children();
+
+            $('.popup__content tr td:nth-of-type(2)').each(function (index, value) {
+                var targetContent = $(targetRow[index]).html();
+                $(this).html(targetContent);
+            })
         })
 })
