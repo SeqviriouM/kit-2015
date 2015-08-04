@@ -7,24 +7,20 @@ jQuery(document).ready(function ($) {
             tdWidth.push($(item).width());
         });
 
-        $('#tablo thead tr.tablo-title__fixed th').each(function (index, item) {
+        $('#tablo thead tr.tablo__title_fixed th').each(function (index, item) {
             $(item).width(tdWidth[index]);
             $(item).css('min-width',tdWidth[index]);
         });
-    }
-
-    function columnSelection () {
-
     }
 
     checkTheadWidth();
 
 
     $(window).scroll(function () {
-        var $normalTitle = $('.tablo-title__normal'),
-            $fixedTitle = $('.tablo-title__fixed');
+        var $normalTitle = $('.tablo__title_normal'),
+            $fixedTitle = $('.tablo__title_fixed');
 
-        if ($(window).scrollTop() > 65) {
+        if ($(window).scrollTop() > 117) {
             $normalTitle.removeClass('show').addClass('hide');
             $fixedTitle.removeClass('hide').addClass('show');
         } else {
@@ -42,13 +38,23 @@ jQuery(document).ready(function ($) {
                 $('#tablo tbody tr td:nth-of-type(' + ($(this).index() + 1) + ')').removeClass('hover');
             }
         })
-        .on('click', 'a', function (e) {
-            debugger;
-            var targetRow = $(this).parent().parent().children();
+        .on('click', 'td', function (e) {
+            var targetRow = $(this).parent().children();
 
             $('.popup__content tr td:nth-of-type(2)').each(function (index, value) {
                 var targetContent = $(targetRow[index]).html();
                 $(this).html(targetContent);
             })
+            $('.overlay').addClass('show');
+        });
+
+        $('body')
+            .on('click', '.overlay, popup__close', function (e) {
+                $('.overlay').removeClass('show');
+            })
+        $(document).on('keyup', function (e) {
+            if (e.keyCode == 27) {
+                $('.overlay').removeClass('show');
+            }
         })
 })
