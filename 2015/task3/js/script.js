@@ -144,10 +144,11 @@ jQuery(document).ready(function ($) {
 
     // analyser.fftSize = 2048;
     analyser.fftSize = 256;
+    analyser.smoothingTimeConstant = 0.3
     bufferLength = analyser.frequencyBinCount;
     dataArray = new Uint8Array(bufferLength);
 
-    source.start(0, startOffset % buffer.duration || 0);
+    source.start(0, startOffset % source.buffer.duration || 0);
 
     // drawWaveForm();
 
@@ -235,7 +236,7 @@ jQuery(document).ready(function ($) {
             HEIGHT = 320;
 
         drawId = requestAnimationFrame(drawSpectrum);
-        analyser.getByteTimeDomainData(dataArray);
+        analyser.getByteFrequencyData(dataArray);
 
         canvasCtx.fillStyle = 'rgb(0, 0, 0)';
         canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
@@ -245,10 +246,10 @@ jQuery(document).ready(function ($) {
         var x = 0;
 
         for(var i = 0; i < bufferLength; i++) {
-            barHeight = dataArray[i]/2;
+            barHeight = dataArray[i];
 
-            canvasCtx.fillStyle = 'rgb(' + (barHeight+100) + ', 50, 50)';
-            canvasCtx.fillRect(x, HEIGHT-barHeight/2, barWidth, barHeight);
+            canvasCtx.fillStyle = 'rgb(' + (barHeight + 100) + ', 50, 50)';
+            canvasCtx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
 
             x += barWidth + 1;
         }
