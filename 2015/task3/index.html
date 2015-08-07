@@ -4,10 +4,37 @@
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/font-awesome.min.css">
         <script type="text/javascript" src="js/libs/jquery-1.11.3.min.js"></script>
+        <!-- <script type="text/javascript" src="js/libs/dropzone.js"></script> -->
         <script type="text/javascript" src="js/script.js"></script>
     </head>
-    <body>
-        <input id="audio_file" type="file" accept="audio/*" />
-        <audio id="audio_player" />
+    <body>        
+        <div class="dropzone">
+            <input id="audio_file" type="file" accept="audio/*" />
+            <div class="dropzone__message">Drop files here or click to upload.</div>
+        </div>
+        <audio id="audio_player" >
+        </audio>
+        <div class="file-information">
+            <div class="file-information__title">
+            </div>
+        </div>
+        <div class="controls">
+            <div class="controls__play controls__element">
+                <i class="fa fa-play"></i>
+            </div>
+            <div class="controls__stop controls__element">
+                <i class="fa fa-pause"></i>
+            </div>
+        </div>
+        <div class="canvas">
+             <canvas height='320' width='480' id='visualisation'></canvas>
+        </div>
+
+        <!-- <form action="/file-upload" class="dropzone">
+          <div class="fallback">
+            <input name="file" type="file" multiple />
+          </div>
+        </form>
+ -->
     </body>
 </html>
