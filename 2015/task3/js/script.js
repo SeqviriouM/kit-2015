@@ -1,15 +1,27 @@
 jQuery(document).ready(function ($) {
 
-    var context = new (window.AudioContext || window.webkitAudioContext)(),
-        analyser = context.createAnalyser(),
+    var context,
+        analyser,
         source,
+        gainNode,
         startOffset = 0,
         startTime = 0,
         buffer,
         title,
         dataArray = [],
         bufferLength,
-        drawId;
+        drawId,
+        drawType = 0;
+
+
+    try {
+      context = new (window.AudioContext || window.webkitAudioContext)();
+      analyser = context.createAnalyser();
+      gainNode = context.createGain();
+      gainNode.gain.value = $('.gain').val();
+    } catch (e) {
+      alert("Your browser doesn't support AudioContext");
+    }
 
     var titleSelector = $('.file-information__title');
 
@@ -25,47 +37,7 @@ jQuery(document).ready(function ($) {
             e.preventDefault();
             return false;
         })
-        .on('drop', function (e) {
-            e.stopPropagation();
-            e.preventDefault();
-            debugger;
-
-            var droppedFiles = e.target.files || e.originalEvent.dataTransfer.files;
-
-            title = droppedFiles[0].name;
-
-            if (title) {
-                titleSelector.text(title);
-            }
-
-            var reader = new FileReader();
-
-            reader.onload = function(fileEvent) {
-              var data = fileEvent.target.result;
-              initAudio(data);
-
-              // var currentSong = document.getElementById('current-song');
-              // var dv = new jDataView(this.result);
-
-              // // "TAG" starts at byte -128 from EOF.
-              // // See http://en.wikipedia.org/wiki/ID3
-              // if (dv.getString(3, dv.byteLength - 128) == 'TAG') {
-              //   var title = dv.getString(30, dv.tell());
-              //   var artist = dv.getString(30, dv.tell());
-              //   var album = dv.getString(30, dv.tell());
-              //   var year = dv.getString(4, dv.tell());
-              //   currentSong.innerHTML = 'Playing ' + title + ' by ' + artist;
-              // } else {
-              //   // no ID3v1 data found.
-              //   currentSong.innerHTML = 'Playing';
-              // }
-
-              // options.style.display = 'block';
-            };
-
-            reader.readAsArrayBuffer(droppedFiles[0]);
-            return false;
-        })
+        .on('drop', fileSelectHandler)
         .on('click', function (e) {
             $(this).find('input[type="file"]').trigger('click');
         })
@@ -75,52 +47,75 @@ jQuery(document).ready(function ($) {
             e.stopPropagation();
             // return false;
         })
-        .on('change', function (e) {
-            e.stopPropagation();
-            e.preventDefault();
-            debugger;
-
-            var droppedFiles = e.target.files || e.originalEvent.dataTransfer.files;
-
-            var reader = new FileReader();
-
-            reader.onload = function(fileEvent) {
-              var data = fileEvent.target.result;
-              initAudio(data);
-
-              // var currentSong = document.getElementById('current-song');
-              // var dv = new jDataView(this.result);
-
-              // // "TAG" starts at byte -128 from EOF.
-              // // See http://en.wikipedia.org/wiki/ID3
-              // if (dv.getString(3, dv.byteLength - 128) == 'TAG') {
-              //   var title = dv.getString(30, dv.tell());
-              //   var artist = dv.getString(30, dv.tell());
-              //   var album = dv.getString(30, dv.tell());
-              //   var year = dv.getString(4, dv.tell());
-              //   currentSong.innerHTML = 'Playing ' + title + ' by ' + artist;
-              // } else {
-              //   // no ID3v1 data found.
-              //   currentSong.innerHTML = 'Playing';
-              // }
-
-              // options.style.display = 'block';
-            };
-
-            // http://ericbidelman.tumblr.com/post/8343485440/reading-mp3-id3-tags-in-javascript
-            // https://github.com/jDataView/jDataView/blob/master/src/jDataView.js
-
-            reader.readAsArrayBuffer(droppedFiles[0]);
-            return false;
-        });
+        .on('change', fileSelectHandler);
 
 
-    $('.controls__play').on('click', play);
-    $('.controls__stop').on('click', stop);
+    $('.controls__play').on('click', playAudio);
+    $('.controls__stop').on('click', stopAudio);
+
+
+
+    $('.gain').on('change', function(e){
+        if(!gainNode) return false;
+
+        gainNode.gain.value = $('.gain').val();
+    });
+
+    $('.draw-type').on('change', function(e){
+        if (!analyser) return false;
+
+        drawType = parseInt($(this).val());
+        createAnalyzer();
+    });
+
+    $('.sidebar__header').on('click', function (e) {
+        $(this).parent().toggleClass('open');  
+    }) 
+
+
+    function fileSelectHandler (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        debugger;
+
+        var droppedFiles = e.target.files || e.originalEvent.dataTransfer.files;
+
+        title = droppedFiles[0].name;
+
+        if (title) {
+            titleSelector.text(title);
+        }
+
+        var reader = new FileReader();
+
+        reader.onload = function(fileEvent) {
+          var data = fileEvent.target.result;
+          initAudio(data);
+
+          // var currentSong = document.getElementById('current-song');
+          // var dv = new jDataView(this.result);
+
+          // // "TAG" starts at byte -128 from EOF.
+          // // See http://en.wikipedia.org/wiki/ID3
+          // if (dv.getString(3, dv.byteLength - 128) == 'TAG') {
+          //   var title = dv.getString(30, dv.tell());
+          //   var artist = dv.getString(30, dv.tell());
+          //   var album = dv.getString(30, dv.tell());
+          //   var year = dv.getString(4, dv.tell());
+          //   currentSong.innerHTML = 'Playing ' + title + ' by ' + artist;
+          // } else {
+          //   // no ID3v1 data found.
+          //   currentSong.innerHTML = 'Playing';
+          // }
+
+          // options.style.display = 'block';
+        };
+
+        reader.readAsArrayBuffer(droppedFiles[0]);
+        return false;
+    }
 
     function initAudio(data) {
-        // if (source) source.stop(0);
-
         source = context.createBufferSource();
 
         if (context.decodeAudioData) {
@@ -137,48 +132,75 @@ jQuery(document).ready(function ($) {
     }
 
 
-  function createAudio(startOffset) {
+    function createAudio(startOffset) {
 
-    source.connect(context.destination);
-    source.connect(analyser);
+        source.connect(context.destination);
+        source.connect(analyser);
+        source.connect(gainNode);
 
-    // analyser.fftSize = 2048;
-    analyser.fftSize = 256;
-    analyser.smoothingTimeConstant = 0.3
-    bufferLength = analyser.frequencyBinCount;
-    dataArray = new Uint8Array(bufferLength);
+        gainNode.connect(context.destination);
 
-    source.start(0, startOffset % source.buffer.duration || 0);
+        // analyser.fftSize = 2048;
+        // analyser.fftSize = 256;
+        // analyser.smoothingTimeConstant = 0.3
+        // bufferLength = analyser.frequencyBinCount;
+        // dataArray = new Uint8Array(bufferLength);
 
-    // drawWaveForm();
+        createAnalyzer();
 
-    drawSpectrum();
+        source.start(0, startOffset % source.buffer.duration || 0);
 
-    // setTimeout(disconnect, source.buffer.duration * 1000 + 1000);
-  }
+        // drawWaveForm();
 
-  function play () {
-    if (source) {
-        try {
-            source = context.createBufferSource();
-            source.connect(context.destination);
-            source.buffer = buffer;
-            paused = false;
+        // drawSpectrum();
 
-            startTime = context.currentTime;
-            // source.connect(context.destination);
-            // Start playback, but make sure we stay in bound of the buffer.
-            createAudio(startOffset);
-            // source.start(0, startOffset % buffer.duration);
-            // draw();
-        } catch (e) {
-
-        } 
+        // setTimeout(disconnect, source.buffer.duration * 1000 + 1000);
     }
-    
-  }
 
-    function stop () {
+    function createAnalyzer () {
+      if (drawId) {
+        cancelAnimationFrame(drawId);
+      }
+
+      if (drawType === 0) {
+          analyser.fftSize = 2048;
+          analyser.smoothingTimeConstant = 0.3
+          bufferLength = analyser.frequencyBinCount;
+          dataArray = new Uint8Array(bufferLength);
+
+          drawWaveForm();
+      } else {
+          analyser.fftSize = 256;
+          analyser.smoothingTimeConstant = 0.3
+          bufferLength = analyser.frequencyBinCount;
+          dataArray = new Uint8Array(bufferLength);
+
+          drawSpectrum();
+      }
+    }
+
+    function playAudio () {
+      if (source) {
+          try {
+              source = context.createBufferSource();
+              source.connect(context.destination);
+              source.buffer = buffer;
+              paused = false;
+
+              startTime = context.currentTime;
+              // source.connect(context.destination);
+              // Start playback, but make sure we stay in bound of the buffer.
+              createAudio(startOffset);
+              // source.start(0, startOffset % buffer.duration);
+              // draw();
+          } catch (e) {
+
+          } 
+      }
+      
+    }
+
+    function stopAudio () {
         if (source) {
             try {
                 buffer = source.buffer;
