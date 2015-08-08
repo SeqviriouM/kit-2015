@@ -13,7 +13,7 @@ jQuery(document).ready(function ($) {
         bufferLength,
         drawId,
         drawType = 0, 
-        filterType="peaking";
+        filterType="lowpass";
 
 
     try {
@@ -200,7 +200,7 @@ jQuery(document).ready(function ($) {
 
     function createFilter () {
         if (filterNode) {
-            filterNode.type = 'peaking'; // тип фильтра
+            filterNode.type = filterType; // тип фильтра
             filterNode.frequency.value = $('.range-f').val(); // частота
             filterNode.Q.value = $('.range-q').val(); // Q-factor
             filterNode.gain.value = $('.range-g').val(); // Gain
