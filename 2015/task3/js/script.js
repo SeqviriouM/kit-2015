@@ -4,6 +4,7 @@ jQuery(document).ready(function ($) {
         analyser,
         source,
         gainNode,
+        filter,
         startOffset = 0,
         startTime = 0,
         buffer,
@@ -11,7 +12,8 @@ jQuery(document).ready(function ($) {
         dataArray = [],
         bufferLength,
         drawId,
-        drawType = 0;
+        drawType = 0, 
+        filterType="peaking";
 
 
     try {
@@ -19,6 +21,7 @@ jQuery(document).ready(function ($) {
       analyser = context.createAnalyser();
       gainNode = context.createGain();
       gainNode.gain.value = $('.gain').val();
+      filterNode = context.createBiquadFilter();
     } catch (e) {
       alert("Your browser doesn't support AudioContext");
     }
@@ -61,11 +64,36 @@ jQuery(document).ready(function ($) {
         gainNode.gain.value = $('.gain').val();
     });
 
+    $('.range-f').on('change', function(e){
+        if(!filterNode) return false;
+
+        filterNode.frequency.value = $('.range-f').val();
+    });
+
+    $('.range-q').on('change', function(e){
+        if(!filterNode) return false;
+
+        filterNode.Q.value = $('.range-q').val();
+    });
+
+    $('.range-g').on('change', function(e){
+        if(!filterNode) return false;
+
+        filterNode.gain.value = $('.range-g').val();
+    });
+
     $('.draw-type').on('change', function(e){
         if (!analyser) return false;
 
         drawType = parseInt($(this).val());
         createAnalyzer();
+    });
+
+    $('.filter-type').on('change', function(e){
+        if (!filterNode) return false;
+
+        filterType = $(this).val();
+        createFilter();
     });
 
     $('.sidebar__header').on('click', function (e) {
@@ -134,27 +162,18 @@ jQuery(document).ready(function ($) {
 
     function createAudio(startOffset) {
 
+        
+        createAnalyzer();
+        createFilter();
+
         source.connect(context.destination);
         source.connect(analyser);
         source.connect(gainNode);
-
         gainNode.connect(context.destination);
-
-        // analyser.fftSize = 2048;
-        // analyser.fftSize = 256;
-        // analyser.smoothingTimeConstant = 0.3
-        // bufferLength = analyser.frequencyBinCount;
-        // dataArray = new Uint8Array(bufferLength);
-
-        createAnalyzer();
+        source.connect(filterNode);
+        filterNode.connect(context.destination);
 
         source.start(0, startOffset % source.buffer.duration || 0);
-
-        // drawWaveForm();
-
-        // drawSpectrum();
-
-        // setTimeout(disconnect, source.buffer.duration * 1000 + 1000);
     }
 
     function createAnalyzer () {
@@ -177,6 +196,16 @@ jQuery(document).ready(function ($) {
 
           drawSpectrum();
       }
+    }
+
+    function createFilter () {
+        if (filterNode) {
+            filterNode.type = 'peaking'; // тип фильтра
+            filterNode.frequency.value = $('.range-f').val(); // частота
+            filterNode.Q.value = $('.range-q').val(); // Q-factor
+            filterNode.gain.value = $('.range-g').val(); // Gain
+        }
+
     }
 
     function playAudio () {
@@ -255,10 +284,18 @@ jQuery(document).ready(function ($) {
         var canvas = document.querySelector('#visualisation'),
             canvasCtx = canvas.getContext('2d'),
             WIDTH = 480,
-            HEIGHT = 320;
+            HEIGHT = 320,
+            gradient;
 
         drawId = requestAnimationFrame(drawSpectrum);
         analyser.getByteFrequencyData(dataArray);
+
+
+        gradient = canvasCtx.createLinearGradient(0,0,0,300);
+        gradient.addColorStop(1,'#ff0000');
+        gradient.addColorStop(0.75,'#ff0000');
+        gradient.addColorStop(0.25,'#ffff00');
+        gradient.addColorStop(0,'#ffffff');
 
         canvasCtx.fillStyle = 'rgb(0, 0, 0)';
         canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
@@ -270,7 +307,8 @@ jQuery(document).ready(function ($) {
         for(var i = 0; i < bufferLength; i++) {
             barHeight = dataArray[i];
 
-            canvasCtx.fillStyle = 'rgb(' + (barHeight + 100) + ', 50, 50)';
+            // canvasCtx.fillStyle = 'rgb(' + (barHeight + 100) + ', 50, 50)';
+            canvasCtx.fillStyle = gradient;
             canvasCtx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
 
             x += barWidth + 1;
