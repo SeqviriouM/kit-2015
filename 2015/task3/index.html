@@ -7,7 +7,7 @@
         <script type="text/javascript" src="js/libs/jDataView.js"></script>
         <script type="text/javascript" src="js/script.js"></script>
     </head>
-    <body>        
+    <body>       
         <div class="dropzone">
             <input id="audio_file" type="file" accept="audio/*" />
             <div class="dropzone__message">Drop files here or click to upload.</div>
@@ -74,15 +74,20 @@
         </div>
        
         <div class="controls">            
-            <div class="controls__play controls__element">
+            <div class="controls__play controls__element disabled">
                 <i class="fa fa-play"></i>
             </div>
-            <div class="controls__stop controls__element">
+            <div class="controls__stop controls__element disabled">
                 <i class="fa fa-pause"></i>
             </div>
         </div>
         <div class="canvas">
              <canvas height='320' width='480' id='visualisation'></canvas>
         </div>
+
+        <div class="loading">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
+
     </body>
 </html>

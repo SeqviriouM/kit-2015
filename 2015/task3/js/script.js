@@ -1,7 +1,7 @@
 jQuery(document).ready(function ($) {
 
     var context,
-        analyser,
+        analyserNode,
         source,
         gainNode,
         filter,
@@ -15,10 +15,13 @@ jQuery(document).ready(function ($) {
         drawType = 0, 
         filterType="lowpass";
 
+    var controlsPlay = $('.controls__play'),
+        controlsStop = $('.controls__stop');
+
 
     try {
       context = new (window.AudioContext || window.webkitAudioContext)();
-      analyser = context.createAnalyser();
+      analyserNode = context.createAnalyser();
       gainNode = context.createGain();
       gainNode.gain.value = $('.gain').val();
       filterNode = context.createBiquadFilter();
@@ -52,9 +55,17 @@ jQuery(document).ready(function ($) {
         })
         .on('change', fileSelectHandler);
 
-
-    $('.controls__play').on('click', playAudio);
-    $('.controls__stop').on('click', stopAudio);
+    $('.controls')
+        .on('click', '.controls__play:not(.disabled):not(.active)', function (e) {
+            controlsStop.removeClass('active');
+            $(this).addClass('active');
+            playAudio();
+        })
+        .on('click', '.controls__stop:not(.disabled):not(.active)', function (e) {
+            controlsPlay.removeClass('active');
+            $(this).addClass('active');
+            stopAudio();
+        });
 
 
 
@@ -83,7 +94,7 @@ jQuery(document).ready(function ($) {
     });
 
     $('.draw-type').on('change', function(e){
-        if (!analyser) return false;
+        if (!analyserNode) return false;
 
         drawType = parseInt($(this).val());
         createAnalyzer();
@@ -105,6 +116,8 @@ jQuery(document).ready(function ($) {
         e.stopPropagation();
         e.preventDefault();
         debugger;
+
+        $('.loading').addClass('show');
 
         var droppedFiles = e.target.files || e.originalEvent.dataTransfer.files;
 
@@ -167,13 +180,16 @@ jQuery(document).ready(function ($) {
         createFilter();
 
         source.connect(context.destination);
-        source.connect(analyser);
+        source.connect(analyserNode);
         source.connect(gainNode);
         gainNode.connect(context.destination);
         source.connect(filterNode);
         filterNode.connect(context.destination);
 
+        enableControls();
+
         source.start(0, startOffset % source.buffer.duration || 0);
+
     }
 
     function createAnalyzer () {
@@ -182,16 +198,16 @@ jQuery(document).ready(function ($) {
       }
 
       if (drawType === 0) {
-          analyser.fftSize = 2048;
-          analyser.smoothingTimeConstant = 0.3
-          bufferLength = analyser.frequencyBinCount;
+          analyserNode.fftSize = 2048;
+          analyserNode.smoothingTimeConstant = 0.3
+          bufferLength = analyserNode.frequencyBinCount;
           dataArray = new Uint8Array(bufferLength);
 
           drawWaveForm();
       } else {
-          analyser.fftSize = 256;
-          analyser.smoothingTimeConstant = 0.3
-          bufferLength = analyser.frequencyBinCount;
+          analyserNode.fftSize = 256;
+          analyserNode.smoothingTimeConstant = 0.3
+          bufferLength = analyserNode.frequencyBinCount;
           dataArray = new Uint8Array(bufferLength);
 
           drawSpectrum();
@@ -208,22 +224,24 @@ jQuery(document).ready(function ($) {
 
     }
 
+    function enableControls () {
+        $('.controls__element').removeClass('disabled');
+        $('.controls__element').removeClass('active');
+        $('.loading').removeClass('show');
+        $('.controls__play').addClass('active');
+    }
+
     function playAudio () {
       if (source) {
           try {
               source = context.createBufferSource();
               source.connect(context.destination);
               source.buffer = buffer;
-              paused = false;
-
               startTime = context.currentTime;
-              // source.connect(context.destination);
-              // Start playback, but make sure we stay in bound of the buffer.
-              createAudio(startOffset);
-              // source.start(0, startOffset % buffer.duration);
-              // draw();
-          } catch (e) {
 
+              createAudio(startOffset);
+          } catch (e) {
+              alert("Oops, there are some errors, try to reload page");
           } 
       }
       
@@ -237,7 +255,7 @@ jQuery(document).ready(function ($) {
                 startOffset += context.currentTime - startTime;
                 cancelAnimationFrame(drawId);
             } catch (e) {
-
+                alert("Oops, there are some errors, try to reload page");
             } 
         }
     }
@@ -249,7 +267,7 @@ jQuery(document).ready(function ($) {
             HEIGHT = 320;
 
         drawId = requestAnimationFrame(drawWaveForm);
-        analyser.getByteTimeDomainData(dataArray);
+        analyserNode.getByteTimeDomainData(dataArray);
 
         canvasCtx.fillStyle = 'rgb(200, 200, 200)';
         canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
@@ -288,7 +306,7 @@ jQuery(document).ready(function ($) {
             gradient;
 
         drawId = requestAnimationFrame(drawSpectrum);
-        analyser.getByteFrequencyData(dataArray);
+        analyserNode.getByteFrequencyData(dataArray);
 
 
         gradient = canvasCtx.createLinearGradient(0,0,0,300);
