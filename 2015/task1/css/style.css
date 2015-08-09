@@ -1,39 +1,39 @@
 html, body {
-    font-family: sans-serif;
+  font-family: sans-serif;
 }
 
 table {
-    width: 100%;
-    background-color: transparent;
-    border-spacing: 0;
-    border-collapse: collapse;
-    font-size: 14px;
+  width: 100%;
+  background-color: transparent;
+  border-spacing: 0;
+  border-collapse: collapse;
+  font-size: 14px;
 }
 
 td, th {
-    border: 1px solid #ddd;
-    vertical-align: middle;
-    padding: 5px 2px;
-    cursor: pointer;
-    text-align: center;
-    box-sizing: border-box;
+  border: 1px solid #ddd;
+  vertical-align: middle;
+  padding: 5px 2px;
+  cursor: pointer;
+  text-align: center;
+  box-sizing: border-box;
     
 }
 
 th {
-    border-bottom: 2px solid #ddd;
-    /*padding: 7px 5px;*/
-    background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #e6e6e6), color-stop(1, #f2f2f2) );
-    background: -moz-linear-gradient( center top, #e6e6e6 5%, #f2f2f2 100% );
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e6e6e6", endColorstr="#f2f2f2");
-    background: -o-linear-gradient(top,#e6e6e6,#f2f2f2)
-    background-color: #4c4c4c;
-    color: #1d445f;
-    font-size: 15px;
+  border-bottom: 2px solid #ddd;
+  /*padding: 7px 5px;*/
+  background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #e6e6e6), color-stop(1, #f2f2f2) );
+  background: -moz-linear-gradient( center top, #e6e6e6 5%, #f2f2f2 100% );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e6e6e6", endColorstr="#f2f2f2");
+  background: -o-linear-gradient(top,#e6e6e6,#f2f2f2)
+  background-color: #4c4c4c;
+  color: #1d445f;
+  font-size: 15px;
 }
 
 .title {
-    text-align: center;
+  text-align: center;
 }
 
 .tablo {
@@ -41,37 +41,37 @@ th {
 }
 
 .tablo__title_fixed {
-    position: fixed; 
-    top: 0;
-    border-collapse: collapse;
-    width: calc(100% - 16px);
-    display: table;
-    background: #f5f5f5;
-    z-index: 2;
+  position: fixed; 
+  top: 0;
+  border-collapse: collapse;
+  width: calc(100% - 16px);
+  display: table;
+  background: #f5f5f5;
+  z-index: 2;
 }
 
 .tablo__title_normal.show {
-    opacity: 1;
+  opacity: 1;
 }
 
 .tablo__title tr.hide {
-    opacity: 0;
+  opacity: 0;
 }
 
 .short-description {
-    display: none;
+  display: none;
 }
 
 .tablo tbody > tr:nth-of-type(2n+1) {
-    background-color: #f9f9f9;
+  background-color: #f9f9f9;
 }
 
 .tablo > tbody > tr:hover {
-    background-color: #f9f4b8;
+  background-color: #f9f4b8;
 }
 
 .tablo td:hover {
-    background-color: #e7f169;
+  background-color: #e7f169;
 }
 
 /*.tablo .col-1:hover {
@@ -79,158 +79,140 @@ th {
 }*/
 
 .fa.reverse {
-    transform: rotateZ(90deg);
+  transform: rotateZ(90deg);
 }
 
 .tablo a {
-    display: block;
-    text-decoration: none;
-    color: #000;
+  display: block;
+  text-decoration: none;
+  color: #000;
 }
 
 .tablo__row {
   display: none;
 }
 
-/*td:hover::before { 
-    background-color: #f5f5f5;
-    content: '\00a0';  
-    height: 100%;
-    left: -5000px;
-    position: absolute;  
-    top: 0;
-    width: 10000px;   
-    z-index: -1;        
-}*/
-
-/* Выделение колонок */
+/* 
+Выделение колонок без использования js. Но данный метод выглядит немного костыльным,
+т.к. добавление новых строк в таблице может вызвать поломку: когда высота таблицы превысит использумую
+здесь высоту. К тому же возникают конфликты перекрытия со стилями для строк. 
+*/
 
 /*td:hover::after { 
-    background-color: #f5f5f5;
-    content: '\00a0';  
-    height: 10000px;    
-    left: 0;
-    position: absolute;  
-    top: -5000px;
-    width: 100%;
-    z-index: -1;        
+  background-color: #f5f5f5;
+  content: '\00a0';  
+  height: 10000px;    
+  left: 0;
+  position: absolute;  
+  top: -5000px;
+  width: 100%;
+  z-index: -1;        
 }*/
 
 .hover {
-    background: #f9f4b8;
+  background: #f9f4b8;
 }
 
 /* Popup */
 .overlay {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-/*    display: none;*/
-    background: rgba(0, 0, 0, 0.7);
-    transition: opacity 500ms;
-    visibility: hidden; 
-    opacity: 0;
-    z-index: 3;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: none;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden; 
+  opacity: 0;
+  z-index: 3;
 }
 .overlay.show {
-    visibility: visible;
-    opacity: 1;
-/*    display: block;*/
+  visibility: visible;
+  opacity: 1;
+  display: block;
 }
 .overlay:target {
-    visibility: visible;
-    opacity: 1;
+  visibility: visible;
+  opacity: 1;
 }
 
 .popup {
-    margin: 70px auto;
-    padding: 20px;
-    background: #fff;
-    border-radius: 5px;
-    width: 90%;
-    max-width: 550px;
-    position: relative;
-    transition: all 2s ease-in-out;
-    z-index: 2;
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 90%;
+  max-width: 550px;
+  position: relative;
+  transition: all 2s ease-in-out;
+  z-index: 2;
 }
 
 .popup__title {
-    margin-top: 0;
-    color: #333;
-    font-family: Tahoma, Arial, sans-serif;
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
 }
 .popup__close {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    transition: all 200ms;
-    font-size: 30px;
-    font-weight: bold;
-    text-decoration: none;
-    color: #333;
-    cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+  cursor: pointer;
 }
 .popup__close:hover {
-    color: #F7A00E;
+  color: #F7A00E;
 }
 .popup__content {
-    max-height: calc(100% - 170px);
-    overflow: auto;
+  max-height: calc(100% - 170px);
+  overflow: auto;
 }
 .popup__content table {
-    border-collapse: separate;
-    border-spacing: 2px;
+  border-collapse: separate;
+  border-spacing: 2px;
 }
-/*.popup__content tr:nth-of-type(odd) {
-    background-color: #34495e;
-    color: white;
-}
-.popup__content tr:nth-of-type(odd) a {
-    color: white;
-}*/
 .popup__content tr {
-    background-color: #34495e;
-    color: #1E1E1E;
+  background-color: #34495e;
+  color: #1E1E1E;
 }
 .popup__content tr a {
-    color: #1E1E1E;
+  color: #1E1E1E;
 }
 
 .popup__content tr td {
-    border: none;
-    background: #e2e2e2;
+  border: none;
+  background: #e2e2e2;
 }
 .popup__content tr td:first-of-type {
-    padding:  5px 10px;
-    display: inline-block;
-    background: rgb(30, 30, 30);
-    /*-webkit-border-radius: 3px;*/
-    text-transform: uppercase;
-    color: white;
-    position: relative;
+  padding:  5px 10px;
+  display: inline-block;
+  background: rgb(30, 30, 30);
+  text-transform: uppercase;
+  color: white;
+  position: relative;
 }
 .popup__content tr td:first-of-type:before {
-    border-top: 1px solid rgba(0,0,0,0.4);
-    /* this line will be barely visible, but that's how we want it */
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    height: 0px;
-    position: absolute;
-    /* you might need to ajust these positions to your layout */
-    width: 100%;
-    left: 0;
-    top: 50%;
-    content: " "; /* we have to set this, otherwise it won't be visible */
-/*    display: block;*/
+  border-top: 1px solid rgba(0,0,0,0.4);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  height: 0px;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 50%;
+  content: " ";
 }
-/*
-.popup__content tr td:first-of-type {
-    background: #34495e;
-    color: white;
-}*/
-
-
+.controls__gain {
+  -webkit-appearance: none;
+  background-color: gray;
+  height: 2px;
+  border-radius: 15px;
+  padding: 0 3px;
+}
 
 .switch__input {
   position: absolute;
@@ -304,50 +286,50 @@ th {
 }
 
 .switch {
-    text-align: center;
+  text-align: center;
 }
 .switch label.arrival:after {
-    content: 'Прилет';
+  content: 'Прилет';
 }
 .switch label.departure:after {
-    content: 'Вылет';
+  content: 'Вылет';
 }
 
 .tablo-filter {
-    text-align: center;
-    margin: 7px 0;
+  text-align: center;
+  margin: 7px 0;
 }
 
 
 @media screen and (max-width: 900px) {
-    .tablo tbody tr td:nth-of-type(3), .tablo thead tr th:nth-of-type(3) {
-        display: none;
-    } 
-    
-    .short-description {
-        display: block;
-    }
-    
-    .full-description {
-        display: none;
-    }
+  .tablo tbody tr td:nth-of-type(3), .tablo thead tr th:nth-of-type(3) {
+    display: none;
+  } 
+  
+  .short-description {
+    display: block;
+  }
+  
+  .full-description {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 680px) {
-    table {
-        font-size: 12px;
-    }
-    table th {
-        font-size: 14px;
-    }
+  table {
+    font-size: 12px;
+  }
+  table th {
+    font-size: 14px;
+  }
 }
 
 @media screen and (max-width: 600px) {
-    .tablo__title_fixed {
-        opacity: 0;
-    }
+  .tablo__title_fixed {
+    opacity: 0;
+  }
 
-    .tablo__title_normal {
-        opacity: 1 !important;
-    }
+  .tablo__title_normal {
+    opacity: 1 !important;
+  }
 }

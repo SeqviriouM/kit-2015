@@ -1,5 +1,6 @@
 jQuery(document).ready(function ($) {
 
+    /* Задание ширины колонок для заголовка таблицы в случае изменеии ширины экрана */
     function checkTheadWidth() {
         var tdWidth = [];
         
@@ -15,7 +16,7 @@ jQuery(document).ready(function ($) {
 
     checkTheadWidth();
 
-
+    /* Прилипание заголовка таблицы к верхней части экрана */
     $(window).scroll(function () {
         var $normalTitle = $('.tablo__title_normal'),
             $fixedTitle = $('.tablo__title_fixed');
@@ -31,6 +32,11 @@ jQuery(document).ready(function ($) {
     .resize(checkTheadWidth);
 
     $('#tablo')
+        /* 
+        Выделение колонок по наведению
+
+        Метод выделения колонок по наведению без использования js описан в css файле
+        */ 
         .on('mouseover mouseleave', 'td', function (e) {
             if (e.type === 'mouseover') {
                 $('#tablo tbody tr td:nth-of-type(' + ($(this).index() + 1) + ')').addClass('hover');
@@ -38,6 +44,16 @@ jQuery(document).ready(function ($) {
                 $('#tablo tbody tr td:nth-of-type(' + ($(this).index() + 1) + ')').removeClass('hover');
             }
         })
+
+        /*  
+        Активация popup
+
+        Можно было реализовать popup и без использования js: каждой ссылки задать 
+        атрибут href="#description<номер строки>", а кнопке close проставить href="#". Но тогда бы
+        пришлось для каждой строчки вставлять свой popup. Что довольно накладно, если учесть что 
+        в таблице может быть пару сотен строк. К тому же popup обычно предполагает закрытие по нажатию
+        вне зоны или клавишт esc, а не только на крестик. 
+        */
         .on('click', 'td', function (e) {
             var targetRow = $(this).parent().children();
 
@@ -49,8 +65,11 @@ jQuery(document).ready(function ($) {
         });
 
         $('body')
-            .on('click', '.overlay, popup__close', function (e) {
+            .on('click', '.overlay, .popup__close', function (e) {
                 $('.overlay').removeClass('show');
+            })
+            .on('click', '.popup', function (e) {
+                return false;
             })
         $(document).on('keyup', function (e) {
             if (e.keyCode == 27) {
