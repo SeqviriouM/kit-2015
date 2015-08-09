@@ -15,23 +15,23 @@ jQuery(document).ready(function ($) {
         drawType = 0, 
         filterType="lowpass";
 
+    /* Элементы управления play/stop */
     var controlsPlay = $('.controls__play'),
-        controlsStop = $('.controls__stop');
+        controlsStop = $('.controls__stop'),
+        titleSelector = $('.file-information__title');
 
-
+    /* Проверка на поддержку AudioContext */
     try {
-      context = new (window.AudioContext || window.webkitAudioContext)();
-      analyserNode = context.createAnalyser();
-      gainNode = context.createGain();
-      gainNode.gain.value = $('.gain').val();
-      filterNode = context.createBiquadFilter();
+        context = new (window.AudioContext || window.webkitAudioContext)();
+        analyserNode = context.createAnalyser();
+        gainNode = context.createGain();
+        gainNode.gain.value = $('.gain').val();
+        filterNode = context.createBiquadFilter();
     } catch (e) {
-      alert("Your browser doesn't support AudioContext");
+        alert("Your browser doesn't support AudioContext");
     }
 
-    var titleSelector = $('.file-information__title');
-
-
+    /* Обработчики на загрузку файла */
     $('.dropzone')
         .on('dragover', function (e) {
             e.stopPropagation();
@@ -55,6 +55,8 @@ jQuery(document).ready(function ($) {
         })
         .on('change', fileSelectHandler);
 
+
+    /* Обработчики на элементы управления (play/stop)*/
     $('.controls')
         .on('click', '.controls__play:not(.disabled):not(.active)', function (e) {
             controlsStop.removeClass('active');
@@ -68,7 +70,7 @@ jQuery(document).ready(function ($) {
         });
 
 
-
+    /* Обработчики на изменение настроек */
     $('.gain').on('change', function(e){
         if(!gainNode) return false;
 
@@ -107,61 +109,48 @@ jQuery(document).ready(function ($) {
         createFilter();
     });
 
+    /* Обработчик на боковое меню */
     $('.sidebar__header').on('click', function (e) {
         $(this).parent().toggleClass('open');  
     }) 
 
-
+    /* Загрузка выбранного файла*/
     function fileSelectHandler (e) {
         e.stopPropagation();
         e.preventDefault();
         debugger;
 
-        $('.loading').addClass('show');
+        var droppedFiles, reader;
 
-        var droppedFiles = e.target.files || e.originalEvent.dataTransfer.files;
+        $('.loading').addClass('show'); // Активация отображения загрузки
 
+        droppedFiles = e.target.files || e.originalEvent.dataTransfer.files; // Получение выбранного файла
+
+        /* Отображение названия исполняемого файла */
         title = droppedFiles[0].name;
-
         if (title) {
             titleSelector.text(title);
         }
 
-        var reader = new FileReader();
+        reader = new FileReader();
 
+        /* Обработчик на успешное прочтение файла */ 
         reader.onload = function(fileEvent) {
           var data = fileEvent.target.result;
-          initAudio(data);
-
-          // var currentSong = document.getElementById('current-song');
-          // var dv = new jDataView(this.result);
-
-          // // "TAG" starts at byte -128 from EOF.
-          // // See http://en.wikipedia.org/wiki/ID3
-          // if (dv.getString(3, dv.byteLength - 128) == 'TAG') {
-          //   var title = dv.getString(30, dv.tell());
-          //   var artist = dv.getString(30, dv.tell());
-          //   var album = dv.getString(30, dv.tell());
-          //   var year = dv.getString(4, dv.tell());
-          //   currentSong.innerHTML = 'Playing ' + title + ' by ' + artist;
-          // } else {
-          //   // no ID3v1 data found.
-          //   currentSong.innerHTML = 'Playing';
-          // }
-
-          // options.style.display = 'block';
+          initAudio(data); // Инициализация аудио элемента
         };
 
-        reader.readAsArrayBuffer(droppedFiles[0]);
+        reader.readAsArrayBuffer(droppedFiles[0]); // Чтение файла
         return false;
     }
 
     function initAudio(data) {
-        source = context.createBufferSource();
+        source = context.createBufferSource(); // Создаем источник
 
+        /* Декодируем ответ */
         if (context.decodeAudioData) {
           context.decodeAudioData(data, function (buffer) {
-            source.buffer = buffer;
+            source.buffer = buffer; // Подключаем буфер
             createAudio();
           }, function (e) {
             console.error(e);
@@ -173,12 +162,11 @@ jQuery(document).ready(function ($) {
     }
 
 
-    function createAudio(startOffset) {
+    function createAudio(startOffset) {       
+        createAnalyzer(); // Задаем анализатор
+        createFilter(); // Задаем фильтр
 
-        
-        createAnalyzer();
-        createFilter();
-
+        /* Подключаем все необходимое */
         source.connect(context.destination);
         source.connect(analyserNode);
         source.connect(gainNode);
@@ -186,34 +174,40 @@ jQuery(document).ready(function ($) {
         source.connect(filterNode);
         filterNode.connect(context.destination);
 
+        /* Активируем контролы */
         enableControls();
 
+        /* Запускаем музыку */
         source.start(0, startOffset % source.buffer.duration || 0);
 
     }
 
+    /* Функция задания анализатора */
     function createAnalyzer () {
+      // Если идет анимация, то отменяем ее
       if (drawId) {
         cancelAnimationFrame(drawId);
       }
 
+      // Задаем настройки анализатора исходя из типа анимации
       if (drawType === 0) {
           analyserNode.fftSize = 2048;
           analyserNode.smoothingTimeConstant = 0.3
           bufferLength = analyserNode.frequencyBinCount;
           dataArray = new Uint8Array(bufferLength);
 
-          drawWaveForm();
+          drawWaveForm(); // Активируем анимацию
       } else {
           analyserNode.fftSize = 256;
           analyserNode.smoothingTimeConstant = 0.3
           bufferLength = analyserNode.frequencyBinCount;
           dataArray = new Uint8Array(bufferLength);
 
-          drawSpectrum();
+          drawSpectrum(); // Активируем анимацию
       }
     }
 
+    /* Функция задания фильтра */
     function createFilter () {
         if (filterNode) {
             filterNode.type = filterType; // тип фильтра
@@ -224,6 +218,7 @@ jQuery(document).ready(function ($) {
 
     }
 
+    /* Функция зактивация контролов (play/stop) */ 
     function enableControls () {
         $('.controls__element').removeClass('disabled');
         $('.controls__element').removeClass('active');
@@ -231,13 +226,14 @@ jQuery(document).ready(function ($) {
         $('.controls__play').addClass('active');
     }
 
+    /* Функция запуска аудио файла */ 
     function playAudio () {
       if (source) {
           try {
               source = context.createBufferSource();
               source.connect(context.destination);
               source.buffer = buffer;
-              startTime = context.currentTime;
+              startTime = context.currentTime; // Сохранение текущее время
 
               createAudio(startOffset);
           } catch (e) {
@@ -247,12 +243,13 @@ jQuery(document).ready(function ($) {
       
     }
 
+    /* Функция остановки аудио файла */
     function stopAudio () {
         if (source) {
             try {
                 buffer = source.buffer;
                 source.stop(0);
-                startOffset += context.currentTime - startTime;
+                startOffset += context.currentTime - startTime; // Сохранение проигранного времени
                 cancelAnimationFrame(drawId);
             } catch (e) {
                 alert("Oops, there are some errors, try to reload page");
@@ -260,6 +257,7 @@ jQuery(document).ready(function ($) {
         }
     }
 
+    /* Анимация Waveform */
     function drawWaveForm () {
         var canvas = document.querySelector('#visualisation'),
             canvasCtx = canvas.getContext('2d'),
@@ -298,6 +296,7 @@ jQuery(document).ready(function ($) {
       canvasCtx.stroke();
     }
 
+    /* Анимация Spectrum */
     function drawSpectrum () {
         var canvas = document.querySelector('#visualisation'),
             canvasCtx = canvas.getContext('2d'),
