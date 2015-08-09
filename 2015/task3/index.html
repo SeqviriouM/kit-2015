@@ -27,87 +27,91 @@
         <script type="text/javascript" src="js/libs/jDataView.js"></script>
         <script type="text/javascript" src="js/script.js"></script>
     </head>
-    <body>       
-        <div class="dropzone">
-            <input id="audio_file" type="file" accept="audio/*" />
-            <div class="dropzone__message">Drop files here or click to upload.</div>
-        </div>
-        <audio id="audio_player" >
-        </audio>
-        <div class="file-information">
-            <div class="file-information__title">
+    <body>   
+        <div class="container">    
+            <div class="dropzone">
+                <input id="audio_file" type="file" accept="audio/*" />
+                <div class="dropzone__message">Drop files here or click to upload.</div>
             </div>
-        </div>
-        <div class="sidebar">
-            <div class="sidebar__header">
-                Settings
+            <audio id="audio_player" >
+            </audio>
+            <div class="file-information">
+                <div class="file-information__title">
+                </div>
             </div>
-            <div class="sidebar__body">
-                 <div class="settings">
-                    <div class="settings__element">
-                        <div class="settings__element-description">
-                            Gain: 
+            <div class="sidebar">
+                <div class="sidebar__header">
+                    Settings
+                </div>
+                <div class="sidebar__body">
+                     <div class="settings">
+                        <div class="settings__element">
+                            <div class="settings__element-description">
+                                Gain: 
+                            </div>
+                            <div class="settings__element-content">
+                                <input class="gain" type="range" name="points" step="0.05" min="0.1" max="1" value="0.4">
+                            </div>
                         </div>
-                        <div class="settings__element-content">
-                            <input class="gain" type="range" name="points" step="0.05" min="0.1" max="1" value="0.4">
+                        <div class="settings__element">   
+                            <div class="settings__element-description">
+                                Visualisation type: 
+                            </div>
+                            <div class="settings__element-content">
+                                <select class="draw-type control">
+                                    <option value="0">Waveform</option>
+                                    <option value="1">Spectrum</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="settings__element">   
-                        <div class="settings__element-description">
-                            Visualisation type: 
-                        </div>
-                        <div class="settings__element-content">
-                            <select class="draw-type control">
-                                <option value="0">Waveform</option>
-                                <option value="1">Spectrum</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="settings__element">
-                         <div class="settings__element-description filter-description">
-                            Filter: 
-                        </div>
-                        <div class="filters">
-                            <div  class="filters__element">
-                                <span>Filter type: </span>
-                                    <select class="filter-type control">
-                                        <option value="lowpass">Lowpass</option>
-                                        <option value="highpass">Highpass</option>
-                                        <option value="bandpass">Bandpass</option>
-                                        <option value="lowshelf">Lowshelf</option>
-                                        <option value="highshelf">Highshelf</option>
-                                        <option value="peaking">Peaking</option>
-                                        <option value="notch">Notch</option>
-                                        <option value="allpass">Allpass</option>
-                                    </select>
-                                <span>Frequency: </span>
-                                <input class="range-f" type="range" name="points" step="200" min="50" max="10000" value="100">
-                                <span>Quality factor: </span>
-                                <input class="range-q" type="range" name="points" step="0.01" min="0.01" max="100" value="1">
-                                <span>Gain: </span>
-                                <input class="range-g" type="range" name="points" step="0.05" min="0.1" max="1" value="0.4">
+                        <div class="settings__element">
+                             <div class="settings__element-description filter-description">
+                                Filter: 
+                            </div>
+                            <div class="filters">
+                                <div  class="filters__element">
+                                    <span>Filter type: </span>
+                                        <select class="filter-type control">
+                                            <option value="lowpass">Lowpass</option>
+                                            <option value="highpass">Highpass</option>
+                                            <option value="bandpass">Bandpass</option>
+                                            <option value="lowshelf">Lowshelf</option>
+                                            <option value="highshelf">Highshelf</option>
+                                            <option value="peaking">Peaking</option>
+                                            <option value="notch">Notch</option>
+                                            <option value="allpass">Allpass</option>
+                                        </select>
+                                    <span>Frequency: </span>
+                                    <input class="range-f" type="range" name="points" step="200" min="50" max="10000" value="100">
+                                    <span>Quality factor: </span>
+                                    <input class="range-q" type="range" name="points" step="0.01" min="0.01" max="100" value="1">
+                                    <span>Gain: </span>
+                                    <input class="range-g" type="range" name="points" step="0.05" min="0.1" max="1" value="0.4">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-       
-        <div class="controls">            
-            <div class="controls__play controls__element disabled">
-                <i class="fa fa-play"></i>
+           
+            <div class="controls">            
+                <div class="controls__play controls__element disabled">
+                    <i class="fa fa-play"></i>
+                </div>
+                <div class="controls__pause controls__element disabled">
+                    <i class="fa fa-pause"></i>
+                </div>
+                <div class="controls__stop controls__element disabled">
+                    <i class="fa fa-stop"></i>
+                </div>
             </div>
-            <div class="controls__stop controls__element disabled">
-                <i class="fa fa-pause"></i>
+            <div class="canvas">
+                 <canvas height='320' width='480' id='visualisation'></canvas>
+            </div>
+
+            <div class="loading">
+                <i class="fa fa-spinner fa-spin"></i>
             </div>
         </div>
-        <div class="canvas">
-             <canvas height='320' width='480' id='visualisation'></canvas>
-        </div>
-
-        <div class="loading">
-            <i class="fa fa-spinner fa-spin"></i>
-        </div>
-
     </body>
 </html>

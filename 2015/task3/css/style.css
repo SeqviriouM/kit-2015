@@ -1,5 +1,19 @@
+body {
+  background: #555;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 0px 0px 10px #555;
+  min-width: 500px;
+}
+
 .dropzone {
-  width: 70%;
+  width: 90%;
   max-width: 1000px;
   height: 200px;
   margin: 10px auto;

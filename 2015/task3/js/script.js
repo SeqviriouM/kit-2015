@@ -17,7 +17,7 @@ jQuery(document).ready(function ($) {
 
     /* Элементы управления play/stop */
     var controlsPlay = $('.controls__play'),
-        controlsStop = $('.controls__stop'),
+        controlsPause = $('.controls__pause'),
         titleSelector = $('.file-information__title');
 
     /* Проверка на поддержку AudioContext */
@@ -59,12 +59,17 @@ jQuery(document).ready(function ($) {
     /* Обработчики на элементы управления (play/stop)*/
     $('.controls')
         .on('click', '.controls__play:not(.disabled):not(.active)', function (e) {
-            controlsStop.removeClass('active');
+            $('.controls__element').removeClass('active');
             $(this).addClass('active');
             playAudio();
         })
+        .on('click', '.controls__pause:not(.disabled):not(.active)', function (e) {
+            $('.controls__element').removeClass('active');
+            $(this).addClass('active');
+            pauseAudio();
+        })
         .on('click', '.controls__stop:not(.disabled):not(.active)', function (e) {
-            controlsPlay.removeClass('active');
+            $('.controls__element').removeClass('active');
             $(this).addClass('active');
             stopAudio();
         });
@@ -249,12 +254,25 @@ jQuery(document).ready(function ($) {
     }
 
     /* Функция остановки аудио файла */
-    function stopAudio () {
+    function pauseAudio () {
         if (source) {
             try {
                 buffer = source.buffer;
                 source.stop(0);
                 startOffset += context.currentTime - startTime; // Сохранение проигранного времени
+                cancelAnimationFrame(drawId);
+            } catch (e) {
+                alert("Oops, there are some errors, try to reload page");
+            } 
+        }
+    }
+
+    function stopAudio () {
+        if (source) {
+            try {
+                buffer = source.buffer;
+                source.stop(0);
+                startOffset = 0; // Сброс проигранного времени
                 cancelAnimationFrame(drawId);
             } catch (e) {
                 alert("Oops, there are some errors, try to reload page");
