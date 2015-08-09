@@ -4,7 +4,7 @@ jQuery(document).ready(function ($) {
         analyserNode,
         source,
         gainNode,
-        filter,
+        filterNode,
         startOffset = 0,
         startTime = 0,
         buffer,
@@ -145,6 +145,11 @@ jQuery(document).ready(function ($) {
     }
 
     function initAudio(data) {
+        if (source) {
+            try {
+                source.stop(0);
+            } catch (e) { }
+        }
         source = context.createBufferSource(); // Создаем источник
 
         /* Декодируем ответ */

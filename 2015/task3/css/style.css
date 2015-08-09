@@ -6,12 +6,13 @@
   border: 3px dashed gray;
   cursor: pointer;
 }
+
 .dropzone__message {
-    text-align: center;
-    font-size: 20px;
-    font-family: Roboto, 'Open Sans', sans-serif;
-    color: #555;
-    margin: 55px auto;
+  text-align: center;
+  font-size: 20px;
+  font-family: Roboto, 'Open Sans', sans-serif;
+  color: #555;
+  margin: 55px auto;
 }
 
 .dropzone input[type='file'] {
@@ -32,27 +33,27 @@
 }
 
 .controls__element {
-      display: inline-block;
-      font-size: 30px;
-      margin: 0 15px;
-      border: 2px solid #d3d3d3;
-      width: 32px;
-      height: 32px;
-      border-radius: 16px;
-      padding: 10px;
-      text-align: center;
+  display: inline-block;
+  font-size: 30px;
+  margin: 0 15px;
+  border: 2px solid #d3d3d3;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  padding: 10px;
+  text-align: center;
 }
 
 .controls__element:hover, .controls__element.active {
-      background-color: #d3d3d3;
-      color: #333;
+  background-color: #d3d3d3;
+  color: #333;
 }
 
 .file-information__title {
-    text-align: center;
-    font-weight: bold;
-    font-size: 20px;
-    margin: 25px auto;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  margin: 25px auto;
 }
 
 .canvas {
@@ -60,73 +61,7 @@
 }
 
 .canvas canvas {
-  /*border: 3px dashed lightgray;*/
   background-color: rgb(200, 200, 200);
-}
-
-
-.switch__input {
-  position: absolute;
-  visibility: hidden;
-}
-.switch__label:before,
-.switch__label:after{
-  display: block;
-  position: absolute;
-  content: "";
-}
-.switch__label {
-  width: 100px;
-  height: 30px;
-  display: block;
-  position: relative;
-  background-color: #BF2A23;
-  border-radius: 15px;
-  cursor: pointer;
-  outline: none;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-transition: background 0.5s;
-  -moz-transition: background 0.5s;
-  -o-transition: background 0.5s;
-  transition: background 0.5s;
-}
-.switch__label:before{
-  top: 2px;
-  left: 2px;
-  bottom: 2px;
-  right: 2px;
-  -webkit-transition: background 0.5s;
-  -moz-transition: background 0.5s;
-  -o-transition: background 0.5s;
-  transition: background 0.5s;
-}
-.switch__label:after{
-  top: 4px;
-  left: 4px;
-  bottom: 4px;
-  width: 65px;
-  border-radius: 11px;
-  background-color: #fff;
-  padding-top: 2px;
-  text-align: center;
-  -webkit-transition: margin 0.5s, background 0.5s;
-  -moz-transition: margin 0.5s, background 0.5s;
-  -o-transition: margin 0.5s, background 0.5s;
-  transition: margin 0.5s, background 0.5s;
-}
-.switch__input:checked + label {
-  background-color:#00C176;
-}
-.switch__input:checked + label:after {
-  margin-left: 27px;
-  background-color:#fff;
-}
-.switch__input_inline, .switch__label_inline {
-  display: inline-block;
 }
 
 .sidebar {
@@ -145,32 +80,31 @@
 }
 
 .sidebar.open{
-    right: 0!important;
-    box-shadow: 0 0 10px #666;  
+  right: 0!important;
+  box-shadow: 0 0 10px #666;  
 }
 
-
 .sidebar__header {
-    background: none repeat scroll 0 0 #333;
-    color: #fcfcfc;
-    position: absolute;
-    top: 50%;
-    height: 30px;
-    border-radius: 5px 5px 0 0;
-    z-index: 2;
-    width: 160px;
-    left: -95px;
-    line-height: 30px;
-    font-size: 15px;
-    font-weight: 700;
-    text-align: center;
-    cursor: pointer;
-    margin-top: -15px;
-    -webkit-transform: rotate(-90deg);
-    -moz-transform: rotate(-90deg);
-    -o-transform: rotate(-90deg);
-    -ms-transform: rotate(-90deg);
-    transform: rotate(-90deg);
+  background: none repeat scroll 0 0 #333;
+  color: #fcfcfc;
+  position: absolute;
+  top: 50%;
+  height: 30px;
+  border-radius: 5px 5px 0 0;
+  z-index: 2;
+  width: 160px;
+  left: -95px;
+  line-height: 30px;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  margin-top: -15px;
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  transform: rotate(-90deg);
 }
 
 .sidebar__body {
