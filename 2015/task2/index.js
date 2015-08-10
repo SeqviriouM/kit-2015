@@ -3,6 +3,7 @@
  * @param {string} url
  * @param {function} callback
  */
+
 function getData(url, callback) {
     var RESPONSES = {
         '/countries': [
@@ -111,6 +112,11 @@ function getData(url, callback) {
                 } else {
                     responses[requestUrl] = result;
                 }
+
+                /* 
+                Такая задача обычно решается через Promise (т.е. ожидание нескольких промисов и последующая обработка). 
+                Но единственный минус: они пока не везде поддерживаются
+                */
 
                 if (Object.keys(responses).length === 3) {
                     var result = getPopulation(target, responses);

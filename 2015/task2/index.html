@@ -117,6 +117,11 @@ function getData(url, callback) {
                     responses[requestUrl] = result;
                 }
 
+                /* 
+                Такая задача обычно решается через Promise (т.е. ожидание нескольких промисов и последующая обработка). 
+                Но единственный минус: они пока не везде поддерживаются
+                */
+
                 if (Object.keys(responses).length === 3) {
                     var result = getPopulation(target, responses);
                     console.log(result);
