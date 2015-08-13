@@ -16,9 +16,11 @@ jQuery(document).ready(function ($) {
         filterType="lowpass";
 
     /* Элементы управления play/stop */
-    var controlsPlay = $('.controls__play'),
-        controlsPause = $('.controls__pause'),
-        titleSelector = $('.file-information__title');
+    var $controlsPlay = $('.controls__play'),
+        $controlsPause = $('.controls__pause'),
+        $controlsElement = $('.controls__element'),
+        $titleSelector = $('.file-information__title');
+        
 
     /* Проверка на поддержку AudioContext */
     try {
@@ -59,17 +61,17 @@ jQuery(document).ready(function ($) {
     /* Обработчики на элементы управления (play/stop)*/
     $('.controls')
         .on('click', '.controls__play:not(.disabled):not(.active)', function (e) {
-            $('.controls__element').removeClass('active');
+            $controlsElement.removeClass('active');
             $(this).addClass('active');
             playAudio();
         })
         .on('click', '.controls__pause:not(.disabled):not(.active)', function (e) {
-            $('.controls__element').removeClass('active');
+            $controlsElement.removeClass('active');
             $(this).addClass('active');
             pauseAudio();
         })
         .on('click', '.controls__stop:not(.disabled):not(.active)', function (e) {
-            $('.controls__element').removeClass('active');
+            $controlsElement.removeClass('active');
             $(this).addClass('active');
             stopAudio();
         });
@@ -134,7 +136,7 @@ jQuery(document).ready(function ($) {
         /* Отображение названия исполняемого файла */
         title = droppedFiles[0].name;
         if (title) {
-            titleSelector.text(title);
+            $titleSelector.text(title);
         }
 
         reader = new FileReader();
@@ -230,10 +232,9 @@ jQuery(document).ready(function ($) {
 
     /* Функция зактивация контролов (play/stop) */ 
     function enableControls () {
-        $('.controls__element').removeClass('disabled');
-        $('.controls__element').removeClass('active');
+        $controlsElement.removeClass('disabled').removeClass('active');
         $('.loading').removeClass('show');
-        $('.controls__play').addClass('active');
+        $controlsPlay.addClass('active');
     }
 
     /* Функция запуска аудио файла */ 
